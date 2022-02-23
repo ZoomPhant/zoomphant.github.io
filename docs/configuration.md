@@ -30,7 +30,7 @@ View this site's [_config.yml](https://github.com/pmarsceill/just-the-docs/tree/
 logo: "/assets/images/just-the-docs.png"
 ```
 
-## Search
+## 搜索
 
 ```yaml
 # Enable or disable the site search

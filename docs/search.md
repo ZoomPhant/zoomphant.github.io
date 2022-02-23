@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Search
+title: 搜索
 nav_order: 7
 ---
 
@@ -33,7 +33,7 @@ In your site's `_config.yml`, enable search:
 search_enabled: true
 ```
 
-### Search granularity
+### 搜索粒度
 
 Pages are split into sections that can be searched individually.
 The sections are defined by the headings on the page.
@@ -45,7 +45,7 @@ Each section is displayed in a separate search result.
 search.heading_level: 2
 ```
 
-### Search previews
+### 搜索预览
 
 A search result can contain previews that show where the search words are found in the specific section.
 
@@ -63,7 +63,7 @@ search.preview_words_before: 5
 search.preview_words_after: 10
 ```
 
-### Search tokenizer
+### 搜索分词方式
 
 The default is for hyphens to separate tokens in search terms:
 `gem-based` is equivalent to `gem based`, matching either word.
