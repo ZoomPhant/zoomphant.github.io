@@ -2,6 +2,7 @@
 layout: default
 title: Typography
 parent: UI Components
+grand_parent: 书写规范
 nav_order: 1
 ---
 
@@ -111,4 +112,4 @@ Text can be **bold**, _italic_, or ~~strikethrough~~.
 
 There are a number of specific typographic CSS classes that allow you to override default styling for font size, font weight, line height, and capitalization.
 
-[View typography utilities]({{ site.baseurl }}{% link docs/utilities/utilities.md %}#typography){: .btn .btn-outline }
+[View typography utilities]({{ site.baseurl }}{% link docs/write-help/utilities/utilities.md %}#typography){: .btn .btn-outline }

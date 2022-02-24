@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Configuration
-nav_order: 2
+title: Configuration 
+parent: 书写规范
+nav_order: 3
 ---
 
 # Configuration
@@ -30,7 +31,7 @@ View this site's [_config.yml](https://github.com/pmarsceill/just-the-docs/tree/
 logo: "/assets/images/just-the-docs.png"
 ```
 
-## 搜索
+## Search
 
 ```yaml
 # Enable or disable the site search
@@ -137,7 +138,7 @@ jtd.addEvent(toggleDarkMode, 'click', function(){
 });
 </script>
 
-See [Customization]({{ site.baseurl }}{% link docs/customization.md %}) for more information.
+See [Customization]({{ site.baseurl }}{% link docs/write-help/customization.md %}) for more information.
 
 ## Google Analytics
 

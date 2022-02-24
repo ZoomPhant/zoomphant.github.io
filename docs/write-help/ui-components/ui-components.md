@@ -1,9 +1,10 @@
 ---
 layout: default
 title: UI Components
+parent: 书写规范
 nav_order: 3
 has_children: true
-permalink: /docs/ui-components
+permalink: /docs/write-help/ui-components
 ---
 
 # UI Components

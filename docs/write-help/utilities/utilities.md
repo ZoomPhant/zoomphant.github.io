@@ -2,8 +2,9 @@
 layout: default
 title: Utilities
 nav_order: 4
+parent: 书写规范
 has_children: true
-permalink: docs/utilities
+permalink: docs/write-help/utilities
 ---
 
 # Utilities

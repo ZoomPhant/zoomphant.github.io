@@ -2,6 +2,7 @@
 layout: default
 title: Tables
 parent: UI Components
+grand_parent: 书写规范
 nav_order: 4
 ---
 

@@ -1,7 +1,8 @@
 ---
 layout: default
-title: 搜索
-nav_order: 7
+title: Search
+parent: 书写规范
+nav_order: 6
 ---
 
 # Search

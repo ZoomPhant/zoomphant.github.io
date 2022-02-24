@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Customization
-nav_order: 6
+parent: 书写规范
+nav_order: 5
 ---
 
 # Customization
