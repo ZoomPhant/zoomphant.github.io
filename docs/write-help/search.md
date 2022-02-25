@@ -24,9 +24,9 @@ By default, all generated HTML pages are indexed using the following data points
 - Page content
 - Page URL
 
-## Enable search in configuration
+## 在配置中启用搜索
 
-In your site's `_config.yml`, enable search:
+在你网站的 `_config.yml`, 开启搜索:
 
 ```yaml
 # Enable or disable the site search
@@ -36,9 +36,9 @@ search_enabled: true
 
 ### 搜索粒度
 
-Pages are split into sections that can be searched individually.
-The sections are defined by the headings on the page.
-Each section is displayed in a separate search result.
+页面被分割成可以单独搜索的部分。
+章节由页面上的标题定义。
+每个部分显示在一个单独的搜索结果中。
 
 ```yaml
 # Split pages into sections that can be searched individually
@@ -48,7 +48,7 @@ search.heading_level: 2
 
 ### 搜索预览
 
-A search result can contain previews that show where the search words are found in the specific section.
+搜索结果可以包含显示搜索词在特定部分中的位置的预览。
 
 ```yaml
 # Maximum amount of previews per search result
@@ -77,7 +77,7 @@ To allow search for hyphenated words:
 search.tokenizer_separator: /[\s/]+/
 ```
 
-### Display URL in search results 
+### 在显示结果中展示 URL
 
 ```yaml
 # Display the relative url in search results
@@ -85,9 +85,9 @@ search.tokenizer_separator: /[\s/]+/
 search.rel_url: false
 ```
 
-### Display search button
+### 显示搜索按钮
 
-The search button displays in the bottom right corner of the screen and triggers the search input when clicked.
+搜索按钮显示在屏幕的右下角，并在单击时触发搜索输入。
 
 ```yaml
 # Enable or disable the search button that appears in the bottom right corner of every page

@@ -67,6 +67,17 @@ function initNav() {
 {%- if site.search_enabled != false %}
 // Site search
 
+function waitUtil(condition) {
+  return new Promise((resolve, reject) => {
+    const interval = setInterval(() => {
+      if (condition()) {
+        clearInterval(interval);
+        resolve();
+      }
+    }, 100);
+  })
+}
+
 function initSearch() {
   var request = new XMLHttpRequest();
   request.open('GET', '{{ "assets/js/search-data.json" | absolute_url }}', true);
@@ -75,30 +86,38 @@ function initSearch() {
     if (request.status >= 200 && request.status < 400) {
       var docs = JSON.parse(request.responseText);
       
+      // 引用lunr.zh 后该设置不可用
       lunr.tokenizer.separator = {{ site.search.tokenizer_separator | default: site.search_tokenizer_separator | default: "/[\s\-/]+/" }}
 
-      var index = lunr(function(){
-        this.ref('id');
-        this.field('title', { boost: 200 });
-        this.field('content', { boost: 2 });
-        {%- if site.search.rel_url != false %}
-        this.field('relUrl');
-        {%- endif %}
-        this.metadataWhitelist = ['position']
+      waitUtil(function() {
+        return jiebawasm.loaded === true
+      }).then(function() {
 
-        for (var i in docs) {
-          this.add({
-            id: i,
-            title: docs[i].title,
-            content: docs[i].content,
-            {%- if site.search.rel_url != false %}
-            relUrl: docs[i].relUrl
-            {%- endif %}
-          });
-        }
-      });
+        var index = lunr(function(){
+          this.use(lunr.zh);
+          this.ref('id');
+          this.field('title', { boost: 200 });
+          this.field('content', { boost: 2 });
+          {%- if site.search.rel_url != false %}
+          this.field('relUrl');
+          {%- endif %}
+          this.metadataWhitelist = ['position']
+  
+          for (var i in docs) {
+            this.add({
+              id: i,
+              title: docs[i].title,
+              content: docs[i].content,
+              {%- if site.search.rel_url != false %}
+              relUrl: docs[i].relUrl
+              {%- endif %}
+            });
+          }
+        });
 
-      searchLoaded(index, docs);
+        searchLoaded(index, docs);
+      })
+      
     } else {
       console.log('Error loading ajax request. Request status:' + request.status);
     }
