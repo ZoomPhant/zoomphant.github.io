@@ -16,8 +16,8 @@
 title: 数象智云帮助文档
 head: 帮助文档
 description: How to use ZoomPhant Platform to solve all your monitoring problems
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://help.zervice.cn" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: pretty
 exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile", "docs/tests/"]
