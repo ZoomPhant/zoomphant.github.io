@@ -89,34 +89,28 @@ function initSearch() {
       // 引用lunr.zh 后该设置不可用
       lunr.tokenizer.separator = {{ site.search.tokenizer_separator | default: site.search_tokenizer_separator | default: "/[\s\-/]+/" }}
 
-      waitUtil(function() {
-        return jiebawasm.loaded === true
-      }).then(function() {
+      var index = lunr(function(){
+        this.ref('id');
+        this.field('title', { boost: 200 });
+        this.field('content', { boost: 2 });
+        {%- if site.search.rel_url != false %}
+        this.field('relUrl');
+        {%- endif %}
+        this.metadataWhitelist = ['position']
 
-        var index = lunr(function(){
-          this.use(lunr.zh);
-          this.ref('id');
-          this.field('title', { boost: 200 });
-          this.field('content', { boost: 2 });
-          {%- if site.search.rel_url != false %}
-          this.field('relUrl');
-          {%- endif %}
-          this.metadataWhitelist = ['position']
-  
-          for (var i in docs) {
-            this.add({
-              id: i,
-              title: docs[i].title,
-              content: docs[i].content,
-              {%- if site.search.rel_url != false %}
-              relUrl: docs[i].relUrl
-              {%- endif %}
-            });
-          }
-        });
+        for (var i in docs) {
+          this.add({
+            id: i,
+            title: docs[i].title,
+            content: docs[i].content,
+            {%- if site.search.rel_url != false %}
+            relUrl: docs[i].relUrl
+            {%- endif %}
+          });
+        }
+      });
 
-        searchLoaded(index, docs);
-      })
+      searchLoaded(index, docs);
       
     } else {
       console.log('Error loading ajax request. Request status:' + request.status);
