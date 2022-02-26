@@ -2,7 +2,7 @@
 layout: default
 title: Customization
 parent: 书写规范
-nav_order: 5
+nav_order: 6
 ---
 
 # Customization

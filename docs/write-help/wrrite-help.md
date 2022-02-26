@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 书写规范
-nav_order: 2
+nav_order: 3
 has_children: true
 permalink: /docs/write-help
 ---

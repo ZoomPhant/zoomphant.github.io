@@ -2,7 +2,7 @@
 layout: default
 title: Search
 parent: 书写规范
-nav_order: 6
+nav_order: 7
 ---
 
 # Search
