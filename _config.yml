@@ -78,7 +78,7 @@ nav_sort: case_sensitive # Capital letters sorted before lowercase
 
 # Back to top link
 back_to_top: true
-back_to_top_text: "Back to top"
+back_to_top_text: "回到顶部"
 
 footer_content: "Copyright &copy; 2022 <a href=\"https://www.zervice.cn\">Zervice</a>"
 
