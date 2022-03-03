@@ -350,7 +350,6 @@ function searchLoaded(docs) {
 
 
     fetch('https://www.zervice.cn/api/docs/search?q=' + input).then((res) => res.json().then(({ results }) => {
-      console.log(results);
   
       if (results.length == 0) {
         var noResultsDiv = document.createElement('div');
