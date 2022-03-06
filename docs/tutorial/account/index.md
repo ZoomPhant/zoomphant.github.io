@@ -2,11 +2,20 @@
 layout: default
 title: 自助创建账户
 parent: 教程
-nav_order: 1
+nav_order: 1,
+has_children: true
 ---
 
 # 自助创建账户
 {: .header}
+
+---
+
+## 内容目录
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

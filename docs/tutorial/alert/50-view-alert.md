@@ -7,6 +7,7 @@ grand_parent: 教程
 ---
 
 # 异常告警查看
+{: .header}
 
 ---
 
