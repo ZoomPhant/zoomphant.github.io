@@ -85,51 +85,7 @@ grand_parent: 教程
 
 我们支持对响应状态码, 响应标头,响应内容的多方位检测. 其中针对响应内容,支持json格式和普通文本格式的检查. 其中操作符包括:等于,不等于,包含,不包含,匹配正则表达式,不匹配正则表达式等等.
 
-如果是JSON格式, 可以[参考](https://www.cnblogs.com/wynjauu/articles/9556396.html)如下示例的JSON内容和对应的操作符意义:
-
-```json
-{
-    "store": {
-        "book": [
-            {
-                "category": "reference",
-                "author": "Nigel Rees",
-                "title": "Sayings of the Century",
-                "price": 8.95
-            },
-            {
-                "category": "fiction",
-                "author": "Evelyn Waugh",
-                "title": "Sword of Honour",
-                "price": 12.99
-            },
-            {
-                "category": "fiction",
-                "author": "Herman Melville",
-                "title": "Moby Dick",
-                "isbn": "0-553-21311-3",
-                "price": 8.99
-            },
-            {
-                "category": "fiction",
-                "author": "J. R. R. Tolkien",
-                "title": "The Lord of the Rings",
-                "isbn": "0-395-19395-8",
-                "price": 22.99
-            }
-        ],
-        "bicycle": {
-            "color": "red",
-            "price": 19.95
-        }
-    },
-    "expensive": 10
-}
-```
-
-![image-20220302160847052](/assets/images/tutorial/spm/image-20220302160847052.png)
-
-
+如果是JSON格式, 请参考[如何使用JSONPath]()
 
 ### 变量定义
 
