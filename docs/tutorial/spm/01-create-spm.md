@@ -46,6 +46,3 @@ grand_parent: 教程
 - 服务类型：创建服务性能监控(SPM)时选择的服务类型，比如网站服务等
 - 当前状态：服务的当前综合状态
 - 历史状态：过去24小时（一天）服务的综合状态历史及变化情况。
-
-继续阅读：
-* [健康度]({{ site.baseurl }}{% link docs/tutorial/spm/02-spm-healthy.md %})
