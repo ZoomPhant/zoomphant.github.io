@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 功能巡检
+title: 管理功能巡检
 parent: 服务性能监控(SPM)
 nav_order: 10
 grand_parent: 教程
@@ -23,7 +23,7 @@ grand_parent: 教程
 
 ![10-telemetry-summary.png](/assets/images/tutorial/spm/10-telemetry-summary.png)
 
-### 功能采集数据
+### 采集数据
 
 功能巡检会采集服务端多方位数据.  功能包括但不限于:
 
@@ -41,21 +41,13 @@ grand_parent: 教程
 
 ## 添加功能巡检
 
-添加巡检有2种方式:
+进入功能巡检页面后，可点击“创建功能巡检”添加新的功能巡检
 
-1. 在SPM页面,可以添加
+![spm-tele-add](/assets/images/tutorial/spm/spm-tele-add.png)
 
-   ![image-20220302152204781](/assets/images/tutorial/spm/image-20220302152204781.png)
+根据用户账号类型区别，一个功能巡检可以一个或多个步骤,比如如下的针对Bamboo的功能巡检,便包含3个步骤:
 
-2. 如果已经有个巡检,也可以在功能巡检页面右侧点击"创建功能巡检"
-
-![image-20220302152255844](/assets/images/tutorial/spm/image-20220302152255844.png)
-
-
-
-一个功能巡检可以包含多个步骤,比如如下的针对Bamboo的功能巡检,便包含3个步骤:
-
-![image-20220302154712067](/assets/images/tutorial/spm/image-20220302154712067.png)
+![spm-tele-build](/assets/images/tutorial/spm/spm-tele-build.png)
 
 **巡检名称**: 为了让巡检更加方便维护而设置的可读性名称.
 
@@ -72,13 +64,12 @@ grand_parent: 教程
 巡检中主要包含以下部分:
 
 - 步骤名称
-- 步骤路径. 步骤的HTTP 请求路径.  可以使用相对路径, 比如/api/version 也可以使用绝对路径https://www.zervice.cn/help.  不要求必须以基础路径开头.
+- 步骤路径. 步骤的HTTP 请求路径.  可以使用相对路径, 比如/api/version 也可以使用绝对路径如 https://www.bamboo.com/api/version.  不要求必须以基础路径开头.
 - 请求设置. 支持POST, GET, PUT, DELETE, HEAD等请求设置, 请求数据支持表单格式和JSON格式.
 - 响应匹配. 支持对响应状态码和响应的校验. 校验方式包括: 文本校验, JSON校验,XML 校验.
 - 变量定义. 支持将响应中的部分数据提取并设置为变量,后续步骤可通过${varName}调用该变量. 
 
-![image-20220302155553161](/assets/images/tutorial/spm/image-20220302155553161.png)
-
+![spm-tele-step](/assets/images/tutorial/spm/spm-tele-step.png)
 
 
 ### 响应匹配部分
@@ -95,7 +86,7 @@ grand_parent: 教程
 
 变量名为:myKbPlanKey,  从响应内容中提取, 将响应内容解析为JSON格式,并提取满足表达式`$.plans[?(@.planKey contains 'KB-')].planKey` 作为该变量的值. 该表达式含义是: 根对象中key为plans的数组中, 满足数组中对象的key为planKey,值包含KB-的对象的planKey作为变量的值.  在后续步骤中可以通过`${myKbPlanKey}` 引用该值.
 
-![image-20220303143457094](/assets/images/tutorial/spm/image-20220303143457094.png)
+![spm-tele-var](/assets/images/tutorial/spm/spm-tele-var.png)
 
 
 
@@ -103,5 +94,7 @@ grand_parent: 教程
 
 如果需要可以单步测试巡检来调整或者定位巡检设置问题(您同时可以通过查看返回的响应标头,响应内容和提取到的变量值来查看是否符合预期):
 
-![image-20220302161037357](/assets/images/tutorial/spm/image-20220302161037357.png)
+![spm-tele-test](/assets/images/tutorial/spm/spm-tele-test.png)
 
+继续阅读：
+* [服务安全]({{ site.baseurl }}{% link docs/tutorial/spm/05-spm-security.md %})

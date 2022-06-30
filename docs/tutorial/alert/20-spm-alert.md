@@ -1,12 +1,12 @@
 ---
 layout: default
-title: 服务性能监控告警
+title: 服务事件通知
 parent: 异常告警
 nav_order: 2
 grand_parent: 教程
 ---
 
-# 服务性能监控告警
+# 服务事件通知
 {: .header}
 
 ---
@@ -18,17 +18,13 @@ grand_parent: 教程
 {:toc}
 
 ---
+为了方便用户使用服务性能监控，我们将服务的相关告警呈现为服务事件，并通过服务事件通知的方式对用户进行提醒。
 
-数象智云会为每一个服务性能监控自动创建告警，你所需要的仅仅是设置一下通知谁。
+如下图所示，在服务性能监控首页，点击右上角告警图标即可进入服务性能通知设置页面。
 
-## 新建服务性能监控
-创建服务监控时，系统会自动为你创建一个异常告警，用于在该服务无法访问或访问超时时通知你。你仅仅需要配置一下通知谁。如无告警通知渠道，请参阅 
-* [通知渠道]({{ site.baseurl }}{% link docs/tutorial/alert/10-alert-channel.md %})
+![](/Assets/Images/Tutorial/Alert/Spm-Notify-Setting.png)
 
-![](/assets/images/tutorial/alert/spm-alert-create.png)
+在弹出的设置对话框中，用户可以根据自身情况进行通知设置，如下所示：
 
-## 编辑服务性能监控
-如果你想要改变默认的告警阈值，可以在服务监控创建好后，点击编辑服务监控来进行修改。
-在编辑页面，除了能看到通知渠道外，还能对加载时间和最长停工时间进行配置。
+![](/Assets/Images/Tutorial/Alert/Spm-Notify-Setting-dlg.png)
 
-![img.png](/assets/images/tutorial/alert/alert-spm-update.png)
