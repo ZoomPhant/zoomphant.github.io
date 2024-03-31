@@ -2,6 +2,8 @@
 layout: default
 title: GitHub Home
 nav_order: 1
-description: "Just the Docs is a responsive Jekyll theme with built-in search that is easily customizable and hosted on GitHub Pages."
-permalink: //github.com/ZoomPhant/monitoring
+description: The Enterprise-Level All-In-One Monitoring Solution
+permalink: /
 ---
+
+ZoomPhant is an enteprise-level all-in-one monitoring solution. It is free for personal use.
