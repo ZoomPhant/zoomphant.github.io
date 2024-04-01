@@ -6,9 +6,14 @@ services:
       context: ./
     ports:
       - 4000:4000
+    extra_hosts:
+      - "${HOST:-server}:0.0.0.0"
     volumes:
-      - .:/usr/src/app
+      - ./index.md:/usr/src/app/index.md
+      - ./docs:/usr/src/app/docs
     stdin_open: true
     tty: true
-    command: bundle exec jekyll serve -H 0.0.0.0 -t
+    command: bundle exec jekyll serve -w --force_polling -H ${HOST:-0.0.0.0} -t
+
+
 
