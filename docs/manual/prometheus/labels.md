@@ -1,56 +1,56 @@
 ---
 layout: default
-title: 关于标签
-parent: Prometheus插件
-grand_parent: 手册
+title: Customize Labels
+parent: Prometheus Plugins
+grand_parent: References
 nav_order: 3
 has_children: false
 ---
 
-在一个Prometheus Scraper中，数据往往会具有一些特殊标签，这些标签在择维士数象云中不再适用或需要进行手工添加。
+In a Proometheus Scraper, the data sometimes have some special and / or user defined labels. ZoomPhant may remove some of the labels and may allow you to define extra custom labels to manage and presenting your data.
 
-## 不适用的标签
+## Removed Labels
 
-Prometheus Scraper所产生的数据会包含以下两个标签
-* job：取值为job_name所配置的值，用于代表数据来自哪个任务（job）
-* instance：取值为targets中的__address__或url中的\<host\>:\<port\>，用来区分数字来自于哪个scrape源。
+Usually a Prometheus Scraper would generate data with following two labels
+* job: a name to identify the task of collecting the data
+* instance: used to identify source of the data, the value usu. is the host:port part of address or url of the target
 
-在择维士数象云中，由于数据采集是基于具体采集插件实例的，上述标签不再具备任何意义，因此在数据采集时不会再按Prometheus Scraper的行为进行采集，在导入Grafana面板时，上述标签也会被从query语句中去除，确保可正常进行数据查询。
+In ZoomPhant, since we collecting data in monitoring plugins in an integrated way, above labels no longer has any meaning and would thus be removed or replaced with ZoomPhant internal labels.
 
-## 自定义标签
+## Custom Labels
 
-Prometheus Scraper中往往会配置加入一些自定义标签，如：
+Prometheus Scraper allows user to add custom labels in scraper configurations, like:
 
     static_configs:
         - targets: ['app.mysite.com']
           labels:
             application: 'Awesome App'
 
-在择维士数象云中，只需要在引入创建Prometheus插件监控实例是增加如下格式的参数，并为之填入一个适当的值，即可自动生成这些自定义标签
+In ZoomPhant, you can still add your custom labels when creating the monitoring service. This is done by adding a custom param with name been prefixed with "**custom.**", and the value of the param will then be taken as the label value:
 
     custom.\<labelName\>
 
-如下图所示：
+As an example, a custom label is defiend in below monitoring service：
 
 ![custom.png](./images/custom.jpg)
 
-如果你已经创建好监控实例，只需在监控服务中选择该监控实例，然后编辑即可修改或添加自定义标签：
+If you have already created your monitoring service, you can edit your monitoring service to add / modify custom labels, but the changes will only be reflect in data collected after your change:
 
 ![custom2.png](./images/custom2.jpg)
 
-### 自定义标签值
+### Custom Label Values
 
-在添加自定义标签时，自定义标签值可以通过使用 {{<变量名>}}的方式引用变量值。变量名可以为系统变量，也可以为任何定义在监控插件，监控插件实例上的属性名称。
+When creating custom labels, you can reference existing variables to define the label value as \{\{<variable Name>}}.
 
-系统变量包括
+ZoomPhant has following variable been pre-defined:
 
-* _account: 当前用户的账户ID，一个ca开头的字符串
-* _accountName：当前用户的账户名
-* _agent：当前负责数据采集的采集器ID，一个mc开头的字符串
-* _agentName：当前负责数据采集的采集器名称
-* _product：当前监控插件ID，一个mp开头的字符串
-* _productName：当前监控插件名称
-* _instance：当前监控插件实例的ID，一个mi开头的字符串
-* _instanceName：当前监控插件实例的名称，用户在添加监控时起的名称
-* _resource：当前监控资源的ID，一个mr开头的字符串
-* _resourceName：当前监控资源的名称
+* _account: A unique identifier to represent current user account.
+* _accountName：Name of current user account.
+* _agent：A unique identifier of the collector running the data collecting tasks.
+* _agentName：Name of the collector
+* _product：A unique identifier of the monitoring plugin used to define the collecting task
+* _productName：Name of the monitoring plugin
+* _instance：A unique identifier representing current monitoring service
+* _instanceName：Name of current monitoring service
+* _resource：A unique idenitifier representing the object providing the data
+* _resourceName：Name of the object

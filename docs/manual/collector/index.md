@@ -7,7 +7,7 @@ type: basic
 has_children: false
 ---
 
-# Install Collectors
+# Data Collecting Agents
 
 {: .no_toc .header }
 
@@ -17,7 +17,11 @@ Data collecting is one of the important functions one monitoring solution shall 
 
 In ZoomPhant all-in-one installation, a pre-installed docker-based collector has been installed already, so you can start your monitoring immediately. But still you may need to install additional collectors for special in-depth infrastructure monitoring or to meet other business demands, you shall follow the instructions below to install your other collectors.
 
-*Note: When a collector is installed, the infrastructure running the collector will be automatically monitored using special monitoring services.*
+# Installing Collectors
+
+Collector is a separate package running on user provided infrastructures. By installing a collector, you need to download corresponding collector package and execute the installation command with provided parameter so the collector could connect and register to server.
+
+After the collector is installed and running on the infrastructure, the infrastructure is also get monitored, in this respective, we would say that we have created a special infrastructure montiroing service.
 
 ## Collector Infrastructure Selection
 

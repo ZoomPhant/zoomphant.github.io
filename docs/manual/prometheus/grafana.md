@@ -1,24 +1,36 @@
 ---
 layout: default
-title: 导入Grafana面板
-parent: Prometheus插件
-grand_parent: 手册
+title: Import Grafana Dashboard
+parent: Prometheus Plugins
+grand_parent: References
 nav_order: 2
 has_children: false
 ---
 
-上一步中创建好Prometheus监控插件后，系统只是具备了从暴露Prometheus监控指标的Endpoint处采集数据的能力。要展示这些所采集的数据，我们需要找到对应的Grafana面板，并将它导入所创建的监控模板中。
 
-首先在同一个监控模板管理页面中选中刚才创建的监控模板（此处，我们假设它名为“Mysqld Monitor"，并点击设置图标
-![select.png](./images/select.jpg)
 
-在随后出现的对话框中选择"导入Grafana面板”或导入Grafana面板文件“，如果网络不受限，前者预期你输入一个面板文件的URL或Grafana ID，后者则假设你已经将面板文件（JSON格式）下载到本地，直接上传此文件（用于网络访问受限的环境）。
-![import.png](./images/import.jpg)
+After creating the custom prometheus plugin, you have get the capability to scrape any promtheus endpoint. However how to interpret and presenting the data to users? We would need to important the Grafana dashboards to ZoomPhant Custom Monitoring Plugin.
 
-我们选择”导入Grafana面板“，并输入对应的Grafana 面板ID。（此处，我们输入7362，为一个常用Mysqld Overview面板的ID，详见：[https://grafana.com/grafana/dashboards/7362-mysql-overview/](https://grafana.com/grafana/dashboards/7362-mysql-overview/)）
-![import2.png](./images/import2.jpg)
+First we need to find the correct Grafana dashboard for the custom prometheus plugin (that's why you may need to create more than one custom prometheus monitoring plugin using the same system pre-defined prometheus monitoring plugin template).
 
-等待数秒即可完成导入。此时需对其进行一个编辑，将该面板和监控微产品实例类型进行关联：
-![import3.png](./images/import3.jpg)
+With the Grafna dashboard identified, goto "Settings | Custom Monitoring Plugins" page again, click the **Settings** icon for the plugin you want to import dashboards for:
 
-点击完成，则你已成功完成面板的创建。至此通过普通的应用服务监控添加就可以开始对你的服务和设备进行监控并查看相关图表！
+![image-20240401194537673](./image-20240401194537673.png)
+
+In the dialog popped-up, if you have downloaded the Grafana dashboard definition file, select "**Import From Grafana Dashboard File**" button, or you just click the "**Import From Grafana**" button.
+
+![image-20240401194638454](./image-20240401194638454.png)
+
+In either way,  you shall browse to the dashboard file or paste in the Grafana dashboard ID (e.g. 7362 for a Mysqld Overview dashboards as givben by https://grafana.com/grafana/dashboards/7362-mysql-overview/):
+
+![image-20240401194940331](./image-20240401194940331.png)
+
+
+
+Wait few seconds, you shall see the dashboard has been imported and ready for use:
+
+![image-20240401195048952](./image-20240401195048952.png)
+
+
+
+Click OK and now you have a complete and ready for use custom Prometheus monitoring plugin with Grafana dashboard imported!

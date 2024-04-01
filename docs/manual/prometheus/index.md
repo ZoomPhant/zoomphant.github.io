@@ -1,15 +1,17 @@
 ---
 layout: default
-title: Prometheus插件
-parent: 手册
-nav_order: 2
+title: Prometheus Plugins
+parent: References
+nav_order: 3
 has_children: true
 ---
 
-Prometheus和Grafana是广大开源监控方案爱好者最常使用的用于自建监控方案的工具。择维士数象云提供对Prometheus和Grafana的完全兼容方案，方便用户能将常用的Prometheus和Grafana监控插件接入择维士数象云中。
+Prometheus and Grafana are the most widely used open-source monitoring solution, however it is not a complete monitoring solution (cubersome data collecting, alerting & configuration management, etc.). Also maintaining a working prometheus and Grafana stack along with Prometheus scrapers is not an easy task for most of the customers.
 
-使用Prometheus与Grafana插件分为两步
+ZoomPhant provides a fully compatible way to re-use user's existing Prometheus plugins and Grafana dashboards without managing the Prometheus and Grafana instances. In Promeheus / Grafana world, the data collecting and presentations are separated. In ZoomPhant we can combine those together (plus many other concepts) using **Custom Monitoring Plugins**
 
-1. 创建一个兼容Prometheus Scraper的监控插件
-2. 导入对应的Grafana 面板
+This document will guide users to migrate their existing Prometheus / Grafana monitoring plugins to ZoomPhant Custom Monitoring Plugins in just two simple steps:
+
+1. Create a Prometheus scraper compatible monitoring plugin
+2. Import matching Grafana dashboards
 
