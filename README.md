@@ -12,6 +12,10 @@ You can build a docker image and start the document server locally
 
 
 
+Note: by default, the started server will service by docker IP and all links will be given using that IP, in case you want to use something like a host name or DNS, you can try start the server by appending HOST=\<hostname or DNS>, e.g. *HOST=myserver docker-compose up*
+
+
+
 ## How to publish
 
 To release, just **merge you changes into master** branch and the changes will be deployed by GitHub to [https://zoomphant.github.io](https://zoomphant.github.io)
