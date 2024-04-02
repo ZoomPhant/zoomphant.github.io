@@ -6,9 +6,9 @@ nav_order: 3
 has_children: true
 ---
 
-ZoomPhant can monitor your log!!! It means you can now put your logs and metrics together in one monitoring solution now.
+ZoomPhant can monitor your logs!!! It means you can now put your logs and metrics together in one monitoring solution by using ZoomPhant .
 
-To use log monitoring, you don't need to do any extra setting ups, just find one of the log monitoring plugins and start collecting your log. Within few seconds you can view your log data in your monitoring service dashboard or visiting the centrallized Log & Event browsing page, as shown below
+To use log monitoring, you don't need to do any extra setting, just find one of the log monitoring plugins and start  [collecting your log](add.md). Within few seconds you can view your log data in your monitoring service dashboard or visiting the centrallized Log & Event browsing page, as shown below
 
  ![image-20240402094249365](./image-20240402094249365.png)
 
