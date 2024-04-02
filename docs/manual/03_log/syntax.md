@@ -1,281 +1,324 @@
 ---
 layout: default
-title: 查询语法
-parent: 日志监控
-grand_parent: 手册
+title: ZoomPhant Log Query Language
+parent: Log Monitoring
+grand_parent: References
 nav_order: 1
 has_children: false
 ---
 
-择维士日志查询和处理语法采用流行的类似Splunk或Sumologic的流式查询语法，一个查询语句可以分为以下几大部分
+ZoomPhant using a streaming processing lanuage to process the logs, and a log processing statement may contain following parts:
 
-1. 日志过滤部分：对日志标签或日志内容进行过滤
-2. 日志处理部分：对过滤的日志进行转换、分析和归集处理等
-3. 日志显示选项：对处理后的数据进行合理展示
+1. Log Filtering: Using labels or keywords to reduce the size of logs to be processed
+2. Log Processing: Processing the filtered logs to do conversion / analyzing or grouping, etc.
+3. Log Presenting: Decides how to present the processed logs, e.g. show as pure logs or a diagram in given shapes, etc.
 
-以下将详细介绍我们的日志查询和处理语法，如果想快速使用我们的日志查询语法，可以直接查看或下载以下链接：
-
-[Log_Query_CheatSheet.pdf](/docs/manual/log/Log_Query_CheatSheet.pdf)
+For a quick reference, you can refer to [Log_Query_CheatSheet](./Log_Query_CheatSheet.jpg)
 
 
-## 基本语法
-择维士日志查询通过函数式的语法，使用流式处理函数完成对日志的处理，其基本语法格式如下
+## Syntax
+ZoomPhant Log Query Language is a staged stream processing language, the statement is separated by pipe '|' into different processing stage and having an overall syntax as follows
 ```
-{label='label1'} "keyword1" and "keyword2" | processorFunc1 [args...] | processorFunc2 [args...] /as displayType
+{ streamFiltering } keywordsFiltering | processorFunc1 [args...] | processorFunc2 [args...] /as displayType
 ```
 
-在详细介绍各种过滤方式和处理函数之前，我们需要看看我们语法中可能出现的各种字符串。在我们的语法中，无论是标签值，关键字还是处理函数参数中都会用到字符串，我们支持三种类型的基本字符串格式和专门用于正则表达式的字符串，用户可以根据实际情况选用合适的字符串格式来构造日志查询和处理语句。
+In above stage, the first stage is a filtering stage (more details below), this stage is optional by strongly recommended, followed by one or more processing stage, and could be ended with an optinal display specification.
 
-### 双引号字符串
-这是最基本的字符串，也是最常用的格式。字符串用双引号进行引用，中间不应该出现双引号。
-以下为合法的双引号字符串
+Before explaining the details of the processing functions, let's see how strings could be expressed in the syntax. 
+
+Strings are widely used as label value, keyword and processor arguments, etc. We support different ways to express a string, which can bring convenience for users in different situations.
+
+### Double Quoted Strings
+This is the most common way to express strings: quote the string in double quotes, and in the string there shall have no double quote.
+
+Below are examples of valid double quoted strings.
+
 ```
 "error"
 "Error"
 "He's great"
 "/api/ping"
 ```
-以下双引号字符串为非法格式
+And it is illegal to have a double quote in the double quoted string:
 ```
 "invalid "double quote""
 ```
 
-### 单引号字符串
-如果字符串中有双引号出现，为了方便，我们可以使用单引号来定义字符串，但此时中间不应该出现单引号。
-以下为合法的单引号字符串
+### Single Quoted Strings
+We can use single quoted string to express strings with double quotes, but in single quoted strings there shall be no single quote.
 ```
 ‘Error’
 ‘The "test" string is OK'
 '/api/ping'
 ```
-以下为非法的单引号字符串
+Single quote is not allowed in single quoted strings:
 ```
 'invalid 'single quote''
 ```
 
-### 反引号字符串
-当字符串中即有双引号又有单引号出现时，我们可以使用反引号来定义字符串。与双引号或单引号字符串一样，此时字符串不能包含反引号。
-以下为合法的反引号字符串
+### Tick Quoted Strings
+In case you need to use both single and double quotes in your string, you can use the tick quoted strings, as shown below:
 ```
 `Error`
 `The "double quoted" string and 'single quoted' string`
 `/api/ping`
 ```
-以下反引号字符串为非法格式
+But tick shall not show up in tick quoted strings:
 ```
 `Illegal `back quote``
 ```
 
-### 正则表达式字符串
-为了方便定义正则表达式，我们支持用'/'符合定义的满足RE2语法格式的正则表达式。所有的正则表达式都应该用这种方式进行定义。
+### RE2 Expression
+RE2 expression is a special string, we use slash '/' to enclose such strings, as shown below
 
-例如
 ```
 /.*mysql.*/
 /192\.168\.3\.\d{1,3}/
 ```
 
-具体RE2语法格式请参看 [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax)。
+For more information about RE2 syntax, you can refer to [https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax).
 
-## 日志过滤
-日志过滤时为了方便在查看或处理日志时，将不需要的日志进行排除，以提高查询和处理效率。
+## Log Filtering
+Log volumes could be huge, so when querying and processing logs, we shall filter those logs that we want to process first to improve the efficency.
 
-日志过滤有两种类型
-1. 日志流过滤：每行日志都具有一组标签，具有相同标签和标签值的日志叫做一个日志流。我们可以通过对标签取值进行匹配来过滤掉不需要的日志流。
-2. 关键字过滤：关键字包含在每行日志的消息中，我们可以通过指定一个或多个关键字来对日志消息内容进行匹配，过滤掉不符合关键字要求的日志记录
+There are two types of filtering:
+1. Log Stream Filtering: A log stream is identified by the label set, so this kind of filtering will try to filter the label values to select the correct stream to process.
+2. Keyword Fitlering: Keyword filtering can be used to further filter log lines with certain keywords.
 
-每个查询都应该尽可能的使用日志过滤以减少需要查询或处理的日质量，从而提升日志查询和分析性能。
+As said above, each log query statement shall try to use filters to reduce the volume of queried logs to improve the performance.
 
-### 日志流过滤
-日志流过滤又称为标签过滤，即对日志流中的标签和取值进行过滤。其基本过滤语法为
+### Log Stream Filtering
+As said above, log stream filtering filters against the log labels. The basic syntax for filtering a label is as follows:
+```
+  labelName <Operator> labelValue
+```
+Depends on the operator, the labelValue could be
 
-  标签名 <操作符> 标签值
+* Double, single or tick quoted strings
+* RE2 regular expressions enclosed by slashes
 
-其中操作符可以为：
-1. = ： 标签取值为给定的字符串
-2. !=： 标签取值与给定字符串不符
-3. ~ ： 标签取值匹配给定的RE2表达式
-4. !~： 标签取值与给定的RE2表达式不匹配
+Here the operator could be:
 
-多个条件可以通过**or**或**and**关键字进行组合，从而完成更复杂的标签过滤，如
+1. =  The label value matches the given string exactly
+2. != The label value doesn't exactly match the given string
+3. ~  The label value matches the given RE2 expression
+4. !~ The label value doesn't match the given RE2 expression
+
+Two or more label filters could be ***and***-ed or ***or***-ed together to create a complex log stream filter against multiple labels:
+
 ```
   _instanceName ~ "prod.*" and _category="database"
 ```
 
-### 关键字过滤
+### Keyword Filtering
 
-与日志流过滤不同，关键字过滤作用于日志消息，通过一个或多个关键字，可以根据日志消息内容进一步降低日志处理量。
+Keywords filtering will be used on log lines directly. Used with log stream filtering, it can further reduce the volume of the logs to be queried and processed.
 
-关键字可以是一个有单引号或双引号限定的字符串，也可以是有“/”字符限定的RE2正则表达式，即一个关键可以为下列形式之一：
-1. 单引号字符串：'keyword'
-2. 双引号字符串："keyword"
-3. RE2正则表达式：/key?word/
+Keywords can be any strings in double, single or tick quotes, it can also be a RE2 expression in certain situations. Following are valid keywords:
+1. Single quoted string keyword: 'keyword'
+2. Double quoted string keyword: "keyword"
+3. Keyword in RE2 expression: /key?word/
 
-我们同样可以通过**or**或**and**来组合关键字过滤条件，实现复杂的关键字过滤，此外可以在关键字前附加 **not** 用来对关键字进行反义，如
+Like label filters, we can use **and**, **or** and **not** keywords to create complex keyword filtering against multiple keyworkds, for example:
 ```
   "Error" or "Exception"
 ```
-或
+or
 ```  
   /.*mysql.*/ and not "database"
 ```
 
-### 语法支持
+### Using Filtering
 
-在对日志过滤时，我们有两种不同的语法
-1. 便捷语法：在语法开头直接定义日志流和关键字过滤条件
-2. 函数语法：通过使用一个或多个过滤函数完成日志流和关键字过滤
+When using filtering, we support two ways to specify label and keyword filters
+1. Using Literals: this can only be used on start of query statement
+2. Using Functions: We can add one or more processing stages using filtering functions
 
-两种语法的处理效率在具体实现上没有差异，用户可以根据自身需要灵活使用。
+#### Using Literals
+Filtering literals can only be used at start of a query statement, we would recommend user to always starts with filtering literals to improve log querying and processing.
 
-#### 快捷语法
-快捷语法往往用于日志查询语句的***最开头***，此时用户可以简单快捷的对想过滤的日志进行出理，其语法格式如下
+The syntax for filtering literals is as follows:
+
 ```
-{ <日志流过滤> } <关键字过滤>
+{ <stream filtering> } <keyword filtering>
 ```
 
-上述语法中，每个部分都是可选的，即
-1. 用户可以只对日志流进行过滤，此时只提供大括号内的日志流过滤语句即可
-2. 用户可以只对日志关键字进行过滤，无需大括号部分，只需要提供关键字过滤语法即可
-3. 用户也可以不用提供任何部分，直接开始使用函数对日志进行过滤或处理
+In this syntax, the filtering contains two optional parts
 
-以下为一些快捷过滤语法的实例：
+1. the stream filters, surounded by brackets
+2. followed by optional keyword filters
+
+Following are some examples using above syntax
+
 ```
 {_source~/.*prod-\d+/ and _cagetory="webserver"} "Error" or "Warn"
 {level="error" or level="warn"}
 "/api/ping" and "error"
 ```
 
-#### 函数语法
-使用函数语法，我们可以通过使用一系列过滤函数逐步定义日志过滤条件。这些函数语句可以出现在语法的开头或中间（在开始数值处理之前），从而更容易理解和使用。
+#### Using Functions
+Filering literals can only be used at start of query statement. To make your query statement easier to understand, you can use filtering functions, which can appear at different stages. Filtering functions has following syntax
 
-我们支持的函数参加下面的”日志过滤函数“章节，以下为一些示例：
+```
+funcName filterExpression
+```
+
+We will have more details for supported filtering functions later, for now we can see below examples for using filtering functions
 ```
 grep "Error" | grep -v "website"
 match "Error" or "Warn" | filter _category="database"
 filter _source!~/.*mysql.*/ and _level="error" | grep -v "test"
 ```
 
-## 日志处理与展示
-
-一般情况下，我们往往通过日志过滤即可完成日志查询和查找操作，但日志中有可能包含一些特殊的信息，需要我们做进一步加工、分析和处理才能方便的查看和展示，此时我们就需要
-如果需要对日志做进一步分析处理时，我们则需要使用我们语法中的日志处理和展示语法。
-
-日志处理和展示是通过日志处理函数和展示选项完成，我们在下面的日志函数章节中会有更详细的介绍。
 
 
-## 日志函数
+## Log Processing & Displaying
 
-为了支持上述语法中的不同功能部分，我们的日志函数可大致分为以下几类：
+After we have filtered out the logs we want to process, we may need to further processing the logs like extracting certain information from log lines, counting the lines and find patterns about appearances of certain keywords, etc.
 
-1. 日志过滤函数：用于对日志按标签或内容进行过滤
-2. 标签扩展函数：用于对日志内容进行各种变换或信息提取，方便后续处理
-3. 日志处理函数：用于将日志或日志标签转化为时序指标数据并进行各种归集操作，方便产生相关报表或进行内容展示
-
-### 日志过滤函数
-
-我们支持一下两个个函数对日志进行进一步过滤
-
-* **grep**：用于对日志内容进一步用当个关键字过滤. 可以使用-v选项反向过滤关键字（即不包含关键字）
-  * grep 12345 - 找出日志中含有12345串的日志
-  * grep -v 12345 - 找出日志中不包含12345的日志
-* **match**：用于对日志内容进行关键字过滤，与grep不同的是，它接受一个如前所述的复杂关键字过滤语法，从而能提供更丰富的处理能力。
-  * match ("Failed" or "failed") and /192\.168\.\d{1,3}\.\d{1,3}/
-  * match "error" and "network" 
-* **filter**: 用于对标签进行过滤和。它与***match***类似，预期用户输入一个上述日志流过滤语句对日志按标签行复杂过滤：
-  * filter service = "finance" - 过滤标签名service的值为finance的日志条目
-  * filter location != "chengdu" - 过滤标签名location取值不为chengdu的日志条目
-  * filter name~/Instance .\*/ and _category="website" - 过滤name标签取值匹配指定RE2正则表达式的日志条目且日志类型标签为website的日志
+We use functions to do such processing, and the processed result could be presented in different formats using the displaying options.
 
 
-### 标签扩展函数
+## Log Functions
 
-这类函数用于对日志进行变换或转换，从而能提取出更多的信息（如标签）方便后续过滤或处理。
+We call the each processing method a function, and according to the type of processing, we can group the functions as:
 
-我们目前支持以下函数
+1. Log Filtering Functions: Used to filter logs using labels or keywords to achieve the same purpose as using **filtering literals** mentioned above.
+2. Log Expanding Functions: Used to generate dynamic labels, converting log lines, extracting information from log labels or log lines, etc.
+3. Log Processing Functions: Used to create timeseries from log streams and do analyzing / aggregations on the timeseries.
 
-* **json**：如果日志内容为JSON格式的，可以用json将其进行解析，并将每一个field转换为一个标签
-* **pattern**: 用来快速从日志中提取满足模式的部分并存储为一个标签。其语法为简单的从左自由匹配，用空白键做分隔符，对关心的部分通过用"\<name\>"模式进行命名，对不关心部分可以用特殊的"<_>"进行替代
+### Log Filtering Functions
+
+We support following special functions to filter against log labels (streams) and log lines (keywords)
+
+* **grep**: Used to filter log lines against one keyword, an optional -v option could be used to inverse the effect, as shown in below examples
+  * **grep** "12345" 
+    * Finding all the loglines that contains 12345
+  * **grep** **-v** 12345 
+    * Finding all the logs that **not** contains 12345
+* **match**: Used to filter log lines against multiple keywords by using keyword filtering expressions. User can use brackets to change the default processing order, for example:
+  * **match** **(**"Failed" **or** "failed"**)** **and** /192\.168\.\d{1,3}\.\d{1,3}/                    
+    * Find all log lines containing one of "Failed" and "failed", and also with a matching IP address
+  * **match** "error" **and** "network" 
+    * Find all lines containing both "error" and "network"
+* **filter**: Used to filter log streams or log labels. Like above **match** function, it expects user to provide a label filtering expression as arguments, for example
+  * **filter** service **=** "finance"
+    * Filter all log streams with a service label with value "finance"
+  * **filter** location **!=** "Canada"
+    * Filter all log streams with a location label not equal to "Canada"
+  * **filter** name **~** /Instance .\*/ **and** _category **=** "website" 
+    * Filter log streams with name label matching given RE2 exrepssion and _category label set to "website"
+
+
+### Log Expanding Functions
+
+Those functions can help convert log stream by expanding labels or cnverting the log lines. For now we support following functions
+
+* **json**: Take the log line as valid JSON and extract the fields in this JSON as labels. Existing labels may be overwritten by this operation. For example
+  * json
+    * with out argument, each field will be generated as a label
+  * json location, size
+    * Extract the location and size field to create new location and size labels
+* **pattern**: This is the same as the Loki pattern processing function, which can be used to quickly extract pattern form log lines and generate new labels. It would expect a pattern as argument and use it to match the log lines, using blank space as separator.  You can give a name using \<*labelNamne*\> to generate a label with the matching part or special \<_\> to ignore that part. For example,
+  * pattern '\<ip\> - - <_> "\<method\> \<uri\> <_>" \<status\> \<size\> <_>'
+    * Match a log line, with the first part used to generate ip, method, uri, status and size labels
+* **regexp**: Using RE2 syntax to matching named pattern and using the name to generate labels
+  * regexp /POST (?P<uri>.*) .* (?P<code>\d+) (?P<size>\d+)/
+    * Matching the url, code and size part to generate labels accordingly
+* **logfmt**: Take the log lines as following the logfmt format and convert the key=value pairs as labels. You can visit following link for more information
+  * https://www.brandur.org/logfmt
+
+
+More log expanding functions will be supported in the future.
+
+### Log Processing Functions
+
+Log lines are hard to extract useful information and to display. We can use log processing functions to vectorize the loglines as time series to identify patterns and presenting to customers.
+
+To processing the log lines for above purpose, we need to through following steps
+
+1. Vectorize logs: This is the first step and we would generate the initial timeseries from the log lines which can be further processed and displayed
+2. Timeseries processing: We can using various aggregation and processing functions to process the generated timeseries.
+3. Data presenting: With the final data, we can shall it in a way easier for user to understand the data
+
+#### Log Vectorizing Function
+ZoomPhant support a **range** function to vectorize the log lines or log labels in given steps:
 ```
-  pattern “\<ip\> - - <_> "\<method\> \<uri\> <_>" \<status\> \<size\> <_>"
-```
-* **regexp**：用满足RE2语法格式的正则表达式进行标签提取和扩展，正则表达式中应包含一个或多个模式提取语句，用于识别和提取标签。
-```
-  regexp /POST (?P<uri>.*) .* (?P<code>\d+) (?P<size>\d+)/
-```
-* **logfmt**: 如果日志内容为logfmt格式，可以使用此函数将内容转换为按key=value格式的标签。关于logfmt格式，可参看这个链接：[https://www.brandur.org/logfmt](https://www.brandur.org/logfmt)
-
-### 日志处理函数
-
-日志处理函数时可以对日志或其某个标签进行进一步分析和处理。为了便于理解和使用，在我们的语法中，我们将这个处理分为以下几步：
-1. 日志向量化：作为日志处理的第一步，我们需要将日志或其某个标签的值转换为数据向量（指标时序数据）
-2. 向量数据处理：在有了初始数据向量后，我们可以通过各种向量处理和归集函数对数据进行所需要的处理
-3. 数据展现：在获得最终的处理结果后，我们可以选择一种更合理且便于理解的方式呈现数据
-
-#### 日志向量化函数
-择维士数象云通过**range**函数将日志或日志的某个指标按转换为指标时序数据，其语法格式如下：
-```
-  range <向量时间间隔> use 转换函数 [<转换参数> ...]
-  range <标签> <向量时间间隔> use 转换函数 [<转换参数> ...] [without|by (标签集合)]
-```
-
-在上面语法中
-* 向量时间间隔：用于指定将日志或标签进行向量化的时间间隔大小，可以设置为***auto***让系统自己决定或遵循通常的时间描述格式，用数字加单位表示制定时间间隔，如5m代表5分钟，1h代表1小时，1h30m代表一小时30分钟
-* 转换函数：用于决定用什么样的方式对日志进行向量化，参见以下章节。
-
-其中第一种格式用于将整个日志按其出现次数、评率进行指标数据化，用户可以在 'use' 关键字后指定如下的处理方式：
-* **rate**：每秒产生日志的条数（速率）
-* **count**：指定**单位时间范围**中产生的日志条数
-* **bytes_rate**: 每秒产生的日志字节数（速率）
-* **bytes_count**：指定**单位时间范围**中产生的日志字节数
-* **absent**：如果在指定时间范围内对应标签集合没有值，则返回一个值为1的向量集合，否则返回空向量。
-
-第二种格式则是用于将日志中的某个数值指标（即指标值为数字或可转化为数字信息的内容）进行指标向量数据化，此时在 'use' 关键字后可以使用如下的方式
-* **rate**：标签值在单位时间范围内累加后的每秒变化速率
-* **sum**：标签值在单位时间范围内累加的结果
-* **avg**：标签值在单位时间范围内的平均值
-* **max**：标签值在单位时间范围内的最大值
-* **min**：标签值在单位时间范围内的最小值
-* **first**：标签值在单位时间范围内的第一个非空值
-* **last**：标签值在单位时间范围内的最后一个非空值
-* **stdvar**：标签值在单位时间范围内的标准偏差
-* **stddev**：标签值在单位时间范围内的标准方差
-* **quantile**：标签值在单位时间范围内的指定百分位值，百分位通过第一个参数指定，缺省为90
-* **absent**：如果在指定时间范围没有值，返回值为1的向量，否则返回空向量
-
-在这种格式下，用户可以指定一个**标签集合**，用于对数据按指定标签集合进行过滤或归集后再进行数据向量化。
-
-#### 向量数据处理函数
-
-在产生向量数据后，我们可以通过以下向量处理函数对数据进行进一步归集处理：
-
-* **sum**：将指定标签集合的标签值进行累加
-* **avg**：将指定标签集合的标签值求平均
-* **min**：取指定标签集合的标签值的最小值
-* **max**：取指定标签集合的标签值的最大值
-* **stdvar**：求指定标签集合的标签值的平均偏差
-* **stddev**：求指定标签集合的标签值的平均方差
-* **count**：返回指定标签集合中的总标签值数量
-* **top**：返回从高低排序中最大的前N个序列，N通过第一个参数进行指定，缺省为3
-* **bottom**：返回从高低排序中最小的后N个序列，N通过第一个参数进行指定，缺省为3
-
-这些函数统一的使用格式为
-
-    <函数名> [<函数参数> ...] (without|by) (标签集合)
-
-#### 数据展示选项
-
-缺省情况下，我们对生成的向量数据按其指标集合通过线条进行展示，但用户可以根据数据特征和需要使用一下语句确定展示方式：
-```
-  /as <显示方式>
+  range <vecorizingRange or step> use convertingFunc [<convertingParam1> ...]
+  range <labelName> <vecorizingRange or step> use convertingFunc [<convertingParam1> ...] [without|by (labelSet)]
 ```
 
-其中，**显示方式**支持一下方式
-* **line**或**lines**：将结果按线条方式展示，这是缺省指标数据的展示选项。
-* **pie**或**pies**：将结果按饼图方式显示。
-* **bar**或**bars**：将结果按柱状图方式显示。
-* **area**或**areas**：将结果按重叠区域图方式显示。
-* **stack**或**stacks**：将结果按堆积区域图方式显示。
+In above syntax
+
+* the first is used to vectorize against log lines
+* the second is used to vectorize against given **labelName**
+  * When aggregate against labels, a **labelSet** can be provided to filter or aggregation log streams
+
+In both cases, 
+
+* **vecorizingRange** or step is used to given the a time range to vectorize the log, it is given in format like 5m, 1h or  ***auto*** so ZoomPhant can automatically decide the value.
+* **convertingFunc** is a name to decide what kind of function we can use to do the vectorizization, as shown below
+
+##### Converting Function for Log Lines
+
+If we try to vectorize against the log lines, we can using following converting functions
+
+* **rate**: Number of log lines generated per second every given time range (speed)
+* **count**: Number of log lines generated in given time range
+* **bytes_rate**: Number of bytes per second generated every given time range (speed)
+* **bytes_count**: Number of bytes generated in given time range
+* **absent**: if any logs generated every given time range. If yes a vector with value 1 is returned, otherwise an empty vector is returned
+
+##### Converting Function for Log Labels
+
+To vectorize against a given label following function could be used
+
+* **rate**：Taken the label value as a number, the change rate of the accumulated sum in given time range
+* **sum**：Taken the label value as a number, the accumulated sum in given time range
+* **avg**：Taken the label value as a number, the average value in given time range
+* **max**：Taken the label value as a number, the maximum value in given time range
+* **min**：Taken the label value as a number, the minimum value in given time range
+* **first**：Taken the label value as a number, the first non-null value in given time range
+* **last**：Taken the label value as a number, the last non-null value in given time range
+* **stdvar**：Taken the label value as a number, the standard variation value in given time range
+* **stddev**：Taken the label value as a number, the standard deviation value in given time range
+* **quantile**：Taken the label value as a number, the proportion of values above given percentile. The percentile is given as a number like 90 as the first argument and if missing taken as 90 percentile
+* **absent**：If no value in gime time range, return an empty vector, otherwise an vector with value 1 is returned
 
 
-在我们下一篇文档中，我们将通过分析一组所采集的nginx日志进一步熟悉上述语法。
+
+#### Log Processing Functions
+
+Once we have vectorized timeseries data, we can further processing the timeseries using log processing functions in following syntax
+
+```
+<funcName> [<funcParam1> ...] (without|by) (labelSet)
+```
+
+So the log processing functions can further filter / aggregation the timeseries using given label set, and following functions are supported
+
+* **sum**: Calculate theaccumulated value aggregated by given label set
+* **avg**: Calculate average value aggregated by given label set
+* **min**: Get the minimum value aggregated by given label set
+* **max**: Get maximum value aggregated by given label set
+* **stdvar**: Calculate the standard variation aggregated by given label set
+* **stddev**: Calculate the standard deviation aggregated by given label set
+* **count**: Count the number of streams aggregated by the given label set
+* **top**: Return the top N series aggregated by the given labelset, N is given as the first param, default to 3 if not given
+* **bottom**: Return the bottom N series aggregated by the given labelset, N is given as the first param, default to 3 if not given
+
+
+
+#### Log Display Options
+
+By default we display log data as just log lines and timeseries data as colored lines. User can use the display option to override the display if it applies
+```
+  /as <displayOption>
+```
+
+Here, **displayOption** could be one of following
+* **line** or **lines**: Display the timeseries data as lines, this is the default
+* **pie** or **pies**: Display the timeseries as pie diagrams
+* **bar** or **bars**: Display the timeseries as bar diagrams
+* **area** or **areas**: Display the timeseries as areas.
+* **stack** or **stacks**: Display the timeseries as stacked areas.
