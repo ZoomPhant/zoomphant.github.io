@@ -1,8 +1,9 @@
 ---
 layout: default
 title: DNS Monitoring
-parent: References
-nav_order: 101
+parent: Network Monitoring
+grand_parent: References
+nav_order: 1
 type: network
 has_children: false
 ---

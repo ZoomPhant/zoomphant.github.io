@@ -1,8 +1,9 @@
 ---
 layout: default
 title: HTTP Monitoring
-parent: References
-nav_order: 105
+parent: Network Monitoring
+grand_parent: References
+nav_order: 5
 type: network
 has_children: false
 ---

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Port Monitoring
-parent: References
-nav_order: 102
+parent: Network Monitoring
+grand_parent: References
+nav_order: 2
 type: network
 has_children: false
 ---

@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Data Collecting Agents
+title: Data Collectors
 parent: References
 nav_order: 2
 type: basic
 has_children: false
 ---
 
-# Data Collecting Agents
+# Data Collectors
 
 {: .no_toc .header }
 
 ----
 
-Data collecting is one of the important functions one monitoring solution shall have and ZoomPhant provides this part of function using **Data Collecting Agents** or simply **Collectors**. 
+Data collecting is one of the important functions one monitoring solution shall have and ZoomPhant provides this part of function using **Data Collecting Agents** or simply  **Data Collectors**. 
 
 In ZoomPhant all-in-one installation, a pre-installed docker-based collector has been installed already, so you can start your monitoring immediately. But still you may need to install additional collectors for special in-depth infrastructure monitoring or to meet other business demands, you shall follow the instructions below to install your other collectors.
 

@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Route Monitoring
-parent: References
-nav_order: 103
+parent: Network Monitoring
+grand_parent: References
+nav_order: 3
 type: network
 has_children: false
 ---

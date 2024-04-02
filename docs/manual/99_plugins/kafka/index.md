@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Kafka Monitoring
-parent: References
-nav_order: 107
+parent: Application & Service Monitoring
+grand_parent: References
+nav_order: 101
 type: application
 has_children: false
 ---

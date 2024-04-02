@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Ping Monitoring
-parent: References
-nav_order: 104
+parent: Network Monitoring
+grand_parent: References
+nav_order: 4
 type: network
 has_children: false
 ---

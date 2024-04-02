@@ -1,8 +1,9 @@
 ---
 layout: default
-title: ProxmoxVE监控
-parent: 手册
-nav_order: 3
+title: ProxmoxVE Monitoring
+parent: Application & Service Monitoring
+grand_parent: References
+nav_order: 1
 has_children: true
 ---
 

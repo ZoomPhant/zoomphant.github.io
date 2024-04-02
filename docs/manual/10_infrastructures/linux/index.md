@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Linux Monitoring
-parent: References
+parent: Infrastructure Monitoring
+grand_parent: References
 nav_order: 10
 type: infrastructure
 has_children: false

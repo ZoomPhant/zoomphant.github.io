@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Windows Monitoring
-parent: References
+parent: Infrastructure Monitoring
+grand_parent: References
 nav_order: 20
 type: infrastructure
 has_children: false
