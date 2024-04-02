@@ -1,105 +1,114 @@
 ---
 layout: default
-title: 使用案例
-parent: 日志监控
-grand_parent: 手册
-nav_order: 2
+title: Log Monitoring Use-cases
+parent: Log Monitoring
+grand_parent: References
+nav_order: 3
 has_children: false
 ---
 
-为方便用户快速理解并使用择维士数象云日志查询语法，我们将用一个具体的例子来展示如何使用这些语法。
-
-在这个例子中，我们将对如下格式的nginx日志进行各种过滤、分析。
+To help you understand the ZoomPhant Log Query Language, we using a concrete example to help you processing and understanding your logs. In our example, we will try to process the nginx logs generated with following format (refer to your nginx configuration):
 
     log_format combined '$remote_addr - $remote_user [$time_local] '
                 '"$request" $status $body_bytes_sent '
                 '"$http_referer" "$http_user_agent"';
 
-我们准备的日志集合在没有做任何处理前，展示如下图所示：
+Before we have performed any processing, the raw logs we have collected is something like follows:
 
-![usecase1.png](./images/usecase1.jpg)
+![image-20240402155342053](./image-20240402155342053.png)
 
-## 日志基本过滤
 
-用标签过滤方式只查看POST 请求，使用查询语言如下：
 
-    {request="POST"}
+## Filtering Logs
 
-效果如下
-![usecase1.png](./images/usecase-post.jpg)
+Suppose we just want to process the POST requests, let's filter the logs using following statement
 
-同上，但过滤掉POST请求，使用查询语言如下：
+    {method="POST"}
 
-    {request!="POST"}
+By applying the filter, we can see something like follows
 
-效果如下
-![usecase1.png](./images/usecase-post2.jpg)
+![image-20240402155557568](./image-20240402155557568.png)
 
-继续使用关键字进行更进一步的过滤
+If we want to filter non-POST requests, we can using a filter statement like follows
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?"
+    {method!="POST"}
 
-效果如下
+![image-20240402155732479](./image-20240402155732479.png)
 
-![usecase1.png](./images/usecase-keywords.jpg)
+**Note: here we shall switch to expert mode for this as selection mode only for more basic usage**
 
-## 使用日志处理函数
 
-使用基本的过滤后，我们一般已经将日志量限制在一个比较小的范围（具备特定标签或满足特定关键字组合）；此时进一步处理我们可以使用处理函数来
 
-1. 对日志进行解析变换
-2. 进一步对日志进行过滤筛选
+Continue with above example, let's just try to filter logs for some special apis:
 
-### 提取更多的标签
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?"
 
-这儿，我们将上面已经过滤出来的日志进行提取，获得更多的标签或字段方便处理。我们将提取出以下字段：
+We now have following:
 
-1. ip：发送请求的IP 地址
-2. status：请求处理的状态码，如200,403等
-3. size：回复的大小字节数
-4. referer：发送请求的referer信息（网页地址）
+![image-20240402155937303](./image-20240402155937303.png)
 
-我们用**pattern**处理函数来完成这个操作:
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <status> <size> "<referer>" <_>`
 
-注意此处，因为我们再pattern后面的参数中要用到引号，因此我们使用back tick（·）来作为字符串的引号。此时效果如下：
+## Using Log Processing Functions
 
-![usecase1.png](./images/usecase-pattern.jpg)
+With above filtering, we now limit our logs to a much smaller set, and we can further processing our logs to
 
-此处要注意的是，我们前端试图将一些知名标签转换为汉字，因此看到的“status”标签实际显示为”状态“。
+1. Extract more important information dynamically
+2. Further filtering / processing the processed logs
 
-我们将进一步过滤，确保我们后面只会处理状态为200的请求且referer不为空（”-“）的请求：
+### Extracting More Labels
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <status> <size> "<referer>" <_>` | filter status="200" and referer!="-"
+In the raw nginx log, there are no labels like ip, referer, etc.:
 
-此时效果如下：
+![image-20240402160356897](./image-20240402160356897.png)
 
-![usecase.png](./images/usecase-filter.jpg)
+But those labels might be very useful to understand Nginx logs, we can try to extract them from the logs lines as
 
-### 数据归集与展示
+1. ip: the IP address sending the request
+1. ver: HTTP request version
+2. size: the size in bytes of the responses from the server
+4. referer: the page sending the request (i.e. referer of the request)
 
-我们想统计下上面过滤出来的日志按5分钟为一个间隔，每个间隔的产生的请求数
+We can use **pattern** function to get this done:
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <status> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m by count
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <_> <size> "<referer>" <_>`
 
-效果如下：
+**Note: we are using ticked string here to be able to use double quotes in the pattern argument**
 
-![usecase.png](./images/usecase-count.jpg)
+![image-20240402160634371](./image-20240402160634371.png)
 
-我们可以统计下按大小的请求总和
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <status> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m by count | sum by size
 
-效果如下：
+Suppose we want to find requests that are not processed successfully (status != 200), we can expand our query statement with another filter stage as follows:
 
-![usecase.png](./images/usecase-size.jpg)
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <_> <size> "<referer>" <_>` | filter status!="200"
 
-如果用饼图来查看此类数据效果会更好一些：
+We now have:
 
-    {request!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <status> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m by count | sum by size /as pies
+![image-20240402161204161](./image-20240402161204161.png)
 
-如图所示：
+### Vectorizing Logs and Display
 
-![usecase.png](./images/usecase-pies.jpg)
+Now suppose we want to see the pattern of the successful requests in a 5 minute step, we can do this using following query statement:
 
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <_> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m use count
+
+We now have our output displayed in lines as follows:
+
+![image-20240402182051426](./image-20240402182051426.png)
+
+We can try to get a stats by response size by sumiming against size using following statement
+
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <_> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m use count | sum by size
+
+We now have:
+
+![image-20240402182133987](./image-20240402182133987.png)
+
+If we want to take a look at current distribution by size, it would be better to view the data in pies, so let's add pies display options as follows:
+
+    {method!="POST"} "/api/collectors/mc2" or "/api/logs?" | pattern `<ip> <_> HTTP/<ver>" <_> <size> "<referer>" <_>` | filter status="200" and referer!="-" | range 5m use count | sum by size /as pies
+
+Now we would have data be shown in pies as following:
+
+![image-20240402182214494](./image-20240402182214494.png)
