@@ -96,7 +96,15 @@ Click one of the POD you will be bring to the POD specific dashboard.
 
 Service is a very important concept in Kubernetes. Visiting the Service tab, you can find all the services in cluster and you can add extra monitoring service for the services.
 
+![image-20240407211414911](/Users/ning/work/zpm/zpdocs/docs/manual/10_infrastructures/kubernetes/image-20240407211414911.png)
 
+
+
+As shown above, you can list all the services in the cluster, and for each listed service, if you have not get it monitored, you'll see the **Add Service** button at end of each service, by clicking with, you'll be asked to select the matching plugin and get the service be monitored.
+
+If you have the service been monitored, the corresponding monitoring service will be listed under **Service** column, by clicking which you can quickly visiting the corresponding monitoring service and view the dashboards, for example, in our above diagram, we can click the "Kafka - service/prod/kafka" which is bound to serivce/prod/kafka (Kafka service in prod namespace) and we will be navigated to a page like follows:
+
+![image-20240407211910753](/Users/ning/work/zpm/zpdocs/docs/manual/10_infrastructures/kubernetes/image-20240407211910753.png)
 
 ## Relation of Service ##
 
