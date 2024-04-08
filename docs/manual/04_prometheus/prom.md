@@ -33,6 +33,6 @@ Once created, you've already have your custom monitoring plugin. It has an inter
 
 ## Use Custom Prometheus Monitoring Plugin
 
-Using custom prometheus plugin is very simple. When  [creating service](../service/index.md) , just select your custom prometheus plugin and fill in the only required parameter, the 
+Using custom prometheus plugin is very simple. When  [creating service](../service/) , just select your custom prometheus plugin and fill in the only required parameter, the 
 
 TBD.

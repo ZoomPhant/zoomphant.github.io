@@ -16,7 +16,7 @@ One common problem for monitoring a device is to find out the activeness of the 
 
 ## Creating Port Monitoring Service
 
-Follow the[Add Monitor Service](../service/index.md) and select the **Port Checker** plugin, you can quickly create monitoring tasks for ports opened on a device by providing necessary parameters.
+Follow the[Add Monitor Service](../service/) and select the **Port Checker** plugin, you can quickly create monitoring tasks for ports opened on a device by providing necessary parameters.
 
 ![image-20240328212109559](./image-20240328212109559.png)
 

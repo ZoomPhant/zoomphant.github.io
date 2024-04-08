@@ -16,7 +16,7 @@ Kubernetes is widely used nowadays and there's no good monitoring tool for Kuber
 
 ## Install Kubernetes Collector
 
-Follow the instructions in  [Install Collectors](../collector/index.md) and choose Kubernetes as underlying infrastructure, you will be then creating a Kubernetes collector and corresponding monitoring service.
+Follow the instructions in  [Install Collectors](../collector/) and choose Kubernetes as underlying infrastructure, you will be then creating a Kubernetes collector and corresponding monitoring service.
 
 ### Providing Kubernetes Cluster Information
 

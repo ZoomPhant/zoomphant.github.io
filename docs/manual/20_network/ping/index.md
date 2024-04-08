@@ -16,7 +16,7 @@ Ping is another widely used protocol for operators to check if a remote device i
 
 ## Creating Ping Monitoring
 
-To start monitor a remote device for aliveness and access performance, you can choose the **Ping Checker** plugin as shown in  [Add Monitor Service](../service/index.md) and provide following necessary parameters to create a monitoring service:
+To start monitor a remote device for aliveness and access performance, you can choose the **Ping Checker** plugin as shown in  [Add Monitor Service](../service/) and provide following necessary parameters to create a monitoring service:
 
 ![image-20240328210704407](./image-20240328210704407.png)
 

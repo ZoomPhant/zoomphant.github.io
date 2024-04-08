@@ -16,7 +16,7 @@ ZoomPhant provides an easy way for you to monitor one or more kafka cluster usin
 
 ## Creating Kafka Monitoring
 
-To start monitor a  kafka cluster, you can choose the **Kafka** plugin as shown in  [Add Monitor Service](../service/index.md) and provide following necessary parameters to create a monitoring service:
+To start monitor a  kafka cluster, you can choose the **Kafka** plugin as shown in  [Add Monitor Service](../service/) and provide following necessary parameters to create a monitoring service:
 
 ![image-20240329150532194](image-20240329150532194.png)
 

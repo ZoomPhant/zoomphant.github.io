@@ -18,7 +18,7 @@ The first step to do Windows monitoring is to setup one or more Windows data col
 
 ## Install Windows Collector
 
-Follow the instructions in  [Install Collectors](../collector/index.md) and choose Windows as underlying infrastructure, you'll be able to install a Windows collector.
+Follow the instructions in  [Install Collectors](../collector/) and choose Windows as underlying infrastructure, you'll be able to install a Windows collector.
 
 In the second step, you need to give basic information of the the Windows system you will need to install the collector on:
 
@@ -36,12 +36,12 @@ If you are using powershell, you could modify the command accordingly before you
 
 Go to the infrastructure monitoring service you just added, you shall be able to see dashboards like follows
 
-![image-20240404120400907](/Users/ning/work/zpm/zpdocs/docs/manual/10_infrastructures/windows/image-20240404120400907.png)
+![image-20240404120400907](./image-20240404120400907.png)
 
-Here you can have one place to see the overall status of the windows server, And if you want view the process status on your system, you can switch to the **Process** tab to view a list of running processes:
+Here you can have one place to see the overall status of the windows server, And if you want view the process status on your system, you can switch to the Process tab to view a list of running processes:
 
-![image-20240404120453903](/Users/ning/work/zpm/zpdocs/docs/manual/10_infrastructures/windows/image-20240404120453903.png)
+![image-20240404120453903](./image-20240404120453903.png)
 
 And also the network status of the system in **Nework** tab:
 
-![image-20240404120520723](/Users/ning/work/zpm/zpdocs/docs/manual/10_infrastructures/windows/image-20240404120520723.png)
+![image-20240404120520723](./image-20240404120520723.png)

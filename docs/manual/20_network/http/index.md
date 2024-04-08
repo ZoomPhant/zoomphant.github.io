@@ -16,7 +16,7 @@ HTTP is one of the most widely used protocol. By supporting HTTP monitoring, Zoo
 
 ## Creating HTTP Monitoring
 
-To create a HTTP monitoring, you just follow the instruction in  [Add Monitor Service](../service/index.md) to select the **HTTP Checker** plugin and provides following parameters
+To create a HTTP monitoring, you just follow the instruction in  [Add Monitor Service](../service/) to select the **HTTP Checker** plugin and provides following parameters
 
 ![image-20240328141619210](./image-20240328141619210.png)
 

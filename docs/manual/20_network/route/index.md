@@ -18,7 +18,7 @@ For many network operators, tracers might be one of their most favorite tools. Z
 
 ## Creating Route Monitoring
 
-To monitor routes to a domain, it is straigtht forward to follow the steps in  [Add Monitor Service](../service/index.md) by choosing **Route Checker** plugin and fill in following parameters
+To monitor routes to a domain, it is straigtht forward to follow the steps in  [Add Monitor Service](../service/) by choosing **Route Checker** plugin and fill in following parameters
 
 ![image-20240328213431435](./image-20240328213431435.png)
 
