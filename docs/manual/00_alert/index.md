@@ -19,7 +19,7 @@ In this section, we will let you know how ZoomPhant allows users to define alert
 
 Below diagram describes how ZoomPhant generates alerts and delivers notifications to users
 
-![image-20240406105102101](/Users/ning/work/zpm/zpdocs/docs/manual/01_service/image-20240406105102101.png)
+![image-20240406105102101](./image-20240406105102101.png)
 
 
 
