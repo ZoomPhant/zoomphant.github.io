@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alerting Delivery
+title: Alert Settings
 parent: Alerting & Notifications
 grand_parent: References
 nav_order: 2
@@ -8,7 +8,7 @@ type: basic
 has_children: false
 ---
 
-# Alerting Settings
+# Alert Settings
 
 {: .no_toc .header }
 

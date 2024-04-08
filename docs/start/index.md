@@ -3,7 +3,6 @@ layout: default
 title: Quick Start
 nav_order: 3
 has_children: true
-permalink: docs/start
 ---
 
 # Quick Start
