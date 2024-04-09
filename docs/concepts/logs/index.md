@@ -11,7 +11,7 @@ nav_order: 2
 
 ----
 
-# Understanding the Role of Logs in Monitoring
+# Understanding Logs in Monitoring
 
 Logs play a crucial role in monitoring systems and applications, providing valuable insights into their behavior, performance, and security. Let's explore the significance of logs in monitoring:
 

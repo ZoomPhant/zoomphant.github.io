@@ -11,7 +11,7 @@ nav_order: 3
 
 ----
 
-# The Role of Dashboards in Monitoring Systems
+# Understanding Dashboards in Monitoring
 
 Dashboards play a pivotal role in monitoring systems, providing users with a visual interface to effectively monitor, analyze, and manage their IT infrastructure. In Zoomphant, dashboards are categorized into three levels: global, service level, and independent level, each serving specific purposes tailored to the user's needs.
 
