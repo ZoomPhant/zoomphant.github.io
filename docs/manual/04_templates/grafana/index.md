@@ -3,13 +3,11 @@ layout: default
 title: Import Grafana Dashboard
 parent: Prometheus Plugins
 grand_parent: References
-nav_order: 2
+nav_order: 0
 has_children: false
 ---
 
-
-
-After creating the custom prometheus plugin, you have get the capability to scrape any promtheus endpoint. However how to interpret and presenting the data to users? We would need to important the Grafana dashboards to ZoomPhant Custom Monitoring Plugin.
+After creating the custom monitoring plugin from a monitoring template, you have get the capability to scrape any promtheus endpoint. However how to interpret and presenting the data to users? We would need to important the Grafana dashboards to ZoomPhant Custom Monitoring Plugin.
 
 First we need to find the correct Grafana dashboard for the custom prometheus plugin (that's why you may need to create more than one custom prometheus monitoring plugin using the same system pre-defined prometheus monitoring plugin template).
 

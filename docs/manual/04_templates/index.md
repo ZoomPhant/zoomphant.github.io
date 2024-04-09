@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Prometheus Plugins
+title: Template Monitoring Plugins
 parent: References
 nav_order: 4
 has_children: true

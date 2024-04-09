@@ -68,13 +68,13 @@ We providing navigatable list for nodes, pods and services in a Kubernetes clust
 
 Switch to Node tab, you can find the node list in the node tab as a widget (you can drag and drop to move it to top or bottom of the dashboard):
 
-![image-20240401165130694](/Users/ning/Library/Application Support/typora-user-images/image-20240401165130694.png)
+![image-20240401165130694](./image-20240401165130694.png)
 
 
 
 Click one of the row, you will be bring to a dashboard for the node
 
-![image-20240401165537526](/Users/ning/Library/Application Support/typora-user-images/image-20240401165537526.png)
+![image-20240401165537526](./image-20240401165537526.png)
 
 
 
@@ -82,13 +82,13 @@ Click one of the row, you will be bring to a dashboard for the node
 
 As nodes, you can navigate to Pod tab to see the list and you can filter pods by namespaces as shown below:
 
-![image-20240401180749220](/Users/ning/Library/Application Support/typora-user-images/image-20240401180749220.png)
+![image-20240401180749220](./image-20240401180749220.png)
 
 
 
 Click one of the POD you will be bring to the POD specific dashboard.
 
-![image-20240401180806138](/Users/ning/Library/Application Support/typora-user-images/image-20240401180806138.png)
+![image-20240401180806138](./image-20240401180806138.png)
 
 
 
