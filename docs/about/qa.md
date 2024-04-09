@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Introduction
-parent: Q&A
+title: Q & A
+parent: About
 nav_order: 3
 ---
 
