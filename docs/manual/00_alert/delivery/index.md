@@ -16,7 +16,7 @@ has_children: false
 
 In ZoomPhant, alerts are delivered using an **alert delivery chain**. The chain consists of one or more stages, with each stage be called an **alert delivery channel**. An alert delivery channel can appear in multiple in mulitple alert delivery channels. Following diagram can give you a rough idea about alert delivery chains and alert delivery channels.
 
-![image-20240406175018998](./image-20240406175018998.png)
+![image-20240410110700657](./image-20240410110700657.png)
 
 Here user defines few alert delivery channels, with each channel contains one or more recipients. The alert delivery channels can be used by one or more alert delivery chains.
 
