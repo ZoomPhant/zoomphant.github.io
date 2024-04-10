@@ -18,12 +18,43 @@ Starting using ZoomPhant is simple. Below steps will help you to get a community
 To deploy locally, ensure your environment has Docker 20+ installed. For stable performance, it's recommended to allocate 2 CPU cores and 8GB of free memory. Then, start with the following command:
 
 ```bash
-docker run --hostname zoomphant -it -d -v /root/data:/data -p 8080:80 --name zoomphant zoomphant/pack:latest
+docker run --hostname zoomphant -d -v /root/data:/data -p 8080:80 --name zoomphant zoomphant/pack:latest
+```
+- `--hostname zoomphant`: Avoid the hostname of the container changed each time it restarts.
+- `-v /root/data:/data`: Specifies the persistent data storage directory. You can modify it as needed. Failure to configure this will result in data loss after container restart.
+- `-p 8080:80`: Sets the external port. Default external port is 80, if you want to set the port to other like 8080, you can add this param.
+- `--name zoomphant`: Sets the container name for easy use in docker command.
+- Two image options are available: `zoomphant/pack:latest` and `zoomphant/aio:latest`. The former uses collectors directly from GitHub, while the latter integrates the latest collectors into the image, albeit with a larger size.
+
+After the container is started, you can check the logs to see if the system is running:
+```bash
+docker logs zoomphant
 ```
 
-- `-v /root/data:/data`: Specifies the persistent data storage directory. You can modify it as needed. Failure to configure this will result in data loss after container restart.
-- `-p 8080:80`: Sets the external port. If external access is required, replace `8080` with the corresponding port number.
-- Two image options are available: `zoomphant/pack:latest` and `zoomphant/aio:latest`. The former uses collectors directly from GitHub, while the latter integrates the latest collectors into the image, albeit with a larger size.
+When you see the following log, it means the system is running:
+```bash
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ System is ready! You can access the service as follows:
+     URL: http://172.17.0.36
+     User: admin@zervice.local
+     Password: admin
+
+ Any question or suggestion, please reach out to info@zervice.us! Enjoy!!!
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+```
+
+If you want to upgrade the system, you can use the following command:
+```
+#!/bin/bash
+
+echo "Upgrade ..."
+docker pull zoomphant/pack:latest
+docker stop zoomphant
+docker rm zoomphant
+docker run --hostname zoomphant -d -v /root/data:/data -p 8080:80 --name zoomphant zoomphant/pack:latest
+echo "Upgrade Done!"
+exit
+```
 
 ## Cloud Deployment
 
@@ -31,11 +62,11 @@ For cloud deployment using AWS ECS as an example, follow these steps:
 
 1. Create a Task Definition in ECS and configure the Container:
     - Set the Image URI to `zoomphant/pack:latest`.
-    - Map at least port 80 to facilitate UI access and collector data reporting.
+    - Map at least port 80 to facilitate UI access and collector data reporting. For example, set Host port to 8080.
 
 ![img.png](img.png)
 
-2. Configure Volumes to map `/data` to an EBS volume to ensure data persistence.
+2. Configure Volumes to map `/data` to an EBS volume to ensure data persistence. If you don't add the volume, the data will be lost after restarting the container.
 
 ![img_1.png](img_1.png)
 
