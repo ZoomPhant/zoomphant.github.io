@@ -56,5 +56,5 @@ ZoomPhant is based on our past experience of creating SaaS monitoring solutions 
 - Built-in Visual Collector Task Management: UI interface enables direct configuration for data retrieval without the need for manual configuration files, with plugin extensions available for fetching arbitrary data.
 - Plus all the functions a complete monitoring solution shall have: data collecting, processing, alerting, storing, presenting and many others! 
 
-[Try and Explore ZoomPhant Today!](../start/index.md) 
+[Try and Explore ZoomPhant Today!](../start/) 
 

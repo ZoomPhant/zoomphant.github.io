@@ -27,9 +27,9 @@ As shown in above diagram, ZoomPhant will first evaluate alerts against time ser
 
 ### Alert Evaluation
 
-ZoomPhant will have **alert evaluators** evaluating the timeseries in a real-time way to identify exceptions or abnormals according to **Alerting Rules** defined by users in their [alerting settings](alert.md). Once an exception is identified, it will generate a stateful **alert**, and the alerts will then be queued for delivery.
+ZoomPhant will have **alert evaluators** evaluating the timeseries in a real-time way to identify exceptions or abnormals according to **Alerting Rules** defined by users in their alerting settings. Once an exception is identified, it will generate a stateful **alert**, and the alerts will then be queued for delivery.
 
-Please refer to [Alerting Settings](alert.md) for more on how to define alerting rules.
+Please refer to [Alerting Settings](./alert) for more on how to define alerting rules.
 
 ### Alert Delivery
 
@@ -37,4 +37,4 @@ Alert delivery in ZoomPhant is a staged process using a concept called **Alert D
 
 When an alert is generated, the first stage will be activated and alerts will be sent to recipients defined in the channels of first stage, and it will then escalate gradually along the stages if no actions is detected by recipients in current channel.
 
-Please refer to  [Alert Delivery](delivery.md) for more on how to manage your alert channels and alert delivery chains as well how the alert delivery chains are escalated.
+Please refer to  [Alert Delivery](./delivery) for more on how to manage your alert channels and alert delivery chains as well how the alert delivery chains are escalated.

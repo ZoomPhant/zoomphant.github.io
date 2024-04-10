@@ -21,9 +21,13 @@ To utilize the alerting feature, you need to configure alert rules first. Our sy
 ### General Method
 
 Navigate to the Alert Configurations page by clicking on Settings -> Alert Configurations in the sidebar.
+
 ![img.png](img.png)
 
+
+
 Next, click on the "Add Alert Configuration" button at the top-left corner to enter the alert configuration creation page.
+
 ![img_1.png](img_1.png)
 
 On the alert configuration creation page, you need to configure the following:
@@ -63,5 +67,4 @@ After configuring the alert settings, click the "OK" button to save the alert ru
 
 Both methods of creating alert configurations can be managed on the Alert Configurations page and viewed on the Alert page for each service. If you do not see the alert in the corresponding service, check if the alert configuration scope is set correctly.
 ![img_9.png](img_9.png)
-
 

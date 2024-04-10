@@ -13,5 +13,5 @@ A **template plugin** is a templated monitoring plugin that users can create pow
 * Prometheus Template Plugins: collect data using one of the widely used prometheus exporters.
 * SNMP Template Plugins: collect data using SNMP v1, v2c & v3 protocols
 
-Once you have created your custom monitoring plugin using one of the template plugins, you can create or import dashboards. ZoomPhant support import Grafana dashboards in a simple way, which makes your presenting data collected by your custom monitoring plugin very easy. For more information please refer to  [Importing Grafana Dashboards](grafana/index.md) 
+Once you have created your custom monitoring plugin using one of the template plugins, you can create or import dashboards. ZoomPhant support import Grafana dashboards in a simple way, which makes your presenting data collected by your custom monitoring plugin very easy. For more information please refer to  [Importing Grafana Dashboards](./grafana/) 
 

@@ -22,7 +22,7 @@ The Prometheus Template plugin will try to scrape an Prometheus exporter endpoin
 
 First, navigate to "Settings | Custom Monitoring Plugins" as shown below:
 
-![image-20240401192527511](./image-20240401192527511.png)
+<img src="./image-20240401192527511.png" alt="image-20240401192527511" style="zoom:50%;" />
 
 
 
@@ -73,4 +73,4 @@ Once you have finished adding the service, your data will be coming soon.
 
 By default, a custom plugin will have no dashboards be defined, you shall define the dashboards by your self or you can import a matching Grafana dashboard for a Prometheus custom plugin.
 
-Please refer to [Import Grafana Dashboard](../grafana/index.md)  for more details.
+Please refer to [Import Grafana Dashboard](../grafana/)  for more details.

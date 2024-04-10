@@ -15,7 +15,7 @@ In this section will show you how to import a Grafana dashboard for your created
 
 First you need to find the correct Grafana dashboard for the custom plugin you have created. That's the purpose of custom plugins to create from the same template: The template only defines the way for collecting data, but a custom monitoring plugin is more than just collecting data, it also defines how to presenting data!
 
-In our example, let's assume we have create a custom plugin for SpringBoot applications [create a custom plugin for SpringBoot applications](../prom/index.md) , by searching on Grafana for SpringBoot, we find the matching dashboard:
+In our example, let's assume we have create a custom plugin for SpringBoot applications [create a custom plugin for SpringBoot applications](../prom/) , by searching on Grafana for SpringBoot, we find the matching dashboard:
 
 ![image-20240410101925863](./image-20240410101925863.png)
 
