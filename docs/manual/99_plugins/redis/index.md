@@ -37,7 +37,7 @@ It contains below metrics for a redis server:
 
 - Uptime in hours
 - Max clients 
-- AOF (Append only file) feature status ()
+- AOF (Append only file) feature status (0 is disabled)
 - Connected and blocked clients
 - Memory used 
 - Expired keys count
