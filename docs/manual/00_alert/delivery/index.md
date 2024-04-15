@@ -55,7 +55,7 @@ Once created, the alert delivery channels will be available in creating or manag
 
 ### Create Alert Delivery Chain
 
-When system generating alerts, it will using alert delivery chains to send the notifications. Please refer to  [Create Alerting](./alert) to understand how alert delivery chains are used in alert settings.
+When system generating alerts, it will using alert delivery chains to send the notifications. Please refer to  [Create Alerting](../alert) to understand how alert delivery chains are used in alert settings.
 
 To create an alert delivery chain, click the **Add Delivery Chain** in **Alert Delivery** page and a dialog will be popped up as follows:
 
