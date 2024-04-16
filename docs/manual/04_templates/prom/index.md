@@ -32,7 +32,7 @@ Here you can manage all your custom plugins created from one of the template plu
 
 
 
-Click the "**Add MP Template**" button on the top left corner, the **Create MP Template** dialog will be brought up. Here you shall give your plugin a name and select the Template Type to **Prometheus Exporter**.
+Click the "**Add Custom Plugin**" button on the top left corner, the **Create Custom Plugin** dialog will be brought up. Here you shall give your plugin a name and select the Template Type to **Prometheus Exporter**.
 
 ![image-20240410100010272](./image-20240410100010272.png)
 
