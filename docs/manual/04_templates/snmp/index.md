@@ -10,9 +10,9 @@ has_children: false
 # Monitor SNMP devices using custom templates
 With zoomphant, you can monitor any snmp v1/v2c/v3 devices with customized snmp templates.
 
-## Create Custom Prometheus Monitoring Plugin
+## Create Custom SNMP Monitoring Plugin
 
-The Prometheus Template plugin will try to scrape an Prometheus exporter endpoint and collector all the data exposed. From this template, you can create your first custom Prometheus monitoring plugin easily.
+The SNMP Template plugin will do snmpget/snmpwalk to an snmp agent to scrape data. From this template, you can create your first custom SNMP monitoring plugin easily.
 
 First, navigate to "Settings | Custom Monitoring Plugins" as shown below:
 
@@ -30,9 +30,7 @@ Click the "**Add Custom Plugin**" button on the top left corner, the **Create Cu
 
 ![image-20240415160016942](image-20240415160016942.png)
 
-
-
-# Configure data collections
+## Configure data collections
 
 Step 1: Click the settings button for the snmp template, and now we need to configure the data collected.
 
@@ -55,7 +53,7 @@ Step 2: click the add button, and input the related information:
 
 For different devices, it provides different OIDs. Please contact your device provider for more details.
 
-## Combine Mode
+### Combine Mode
 
 This is used to do snmp walk of a table. eg you have some interfaces and want to get metrics for each interface:
 
@@ -120,4 +118,19 @@ For above configuration:
   Here you can see, the key is still `ifDescr.6` as the key `6` while the value is a STRING `GigabitEthernet1/0/5`.
 
 - Table tags list: you can use this to differ different table records. Here we use  `1.3.6.1.2.1.2.2.1.2` to generate a tag `ifDescr` (the interface description).
-- Parameter list: here we will collect the 
+- Parameter list: here we will collect the `ifInErrors`(1.3.6.1.2.1.2.2.1.14) and `ifOutErrors` (1.3.6.1.2.1.2.2.1.20).
+
+## Add snmp monitoring service
+
+Using custom snmp plugin is very simple. When  [creating service](../../01_service/) , just select your custom snmp plugin:
+
+![image-20240417152620903](image-20240417152620903.png)
+
+and please enter the correct credentials:
+
+![image-20240417173658589](image-20240417173658589.png)
+
+* For snmp v1/v2c, please set the community. For snmp v3, more credentials required.
+
+Now, you can add a dashboard to see metrics interested in. please refer to [dashboards](../../../concepts/dashboards/) to create a dashboard.
+

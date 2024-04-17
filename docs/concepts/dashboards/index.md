@@ -13,7 +13,7 @@ nav_order: 3
 
 # Understanding Dashboards in Monitoring
 
-Dashboards play a pivotal role in monitoring systems, providing users with a visual interface to effectively monitor, analyze, and manage their IT infrastructure. In Zoomphant, dashboards are categorized into three levels: global, service level, and independent level, each serving specific purposes tailored to the user's needs.
+Dashboards play a pivotal role in monitoring systems, providing users with a visual interface to effectively monitor, analyze, and manage their IT infrastructure. In ZoomPhant, dashboards are categorized into three levels: global, service level, and independent level, each serving specific purposes tailored to the user's needs.
 
 ## The Importance of Dashboards in Monitoring Systems
 
@@ -29,7 +29,7 @@ Dashboards play a pivotal role in monitoring systems, providing users with a vis
 4. **Customization and Flexibility:**
     - Dashboards can be customized to meet the specific needs of users and organizations, allowing them to tailor the layout, content, and metrics displayed based on their preferences and priorities.
 
-## Types of Dashboards in Zoomphant
+## Types of Dashboards in ZoomPhant
 
 1. **Global Dashboard:**
     - The global dashboard provides a centralized view of the entire system on a single page, allowing users to monitor and manage multiple services and components across their infrastructure from one location.
@@ -56,9 +56,9 @@ Dashboards play a pivotal role in monitoring systems, providing users with a vis
    ![img_7.png](img_7.png)
     
 
-## Understanding Widgets in Zoomphant Dashboards
+## Understanding Widgets in ZoomPhant Dashboards
 
-Widgets are the building blocks of dashboards in Zoomphant, allowing users to visualize and analyze monitoring data in various formats. Zoomphant offers a wide range of widgets, including:
+Widgets are the building blocks of dashboards in ZoomPhant, allowing users to visualize and analyze monitoring data in various formats. ZoomPhant offers a wide range of widgets, including:
 When you are in a custom dashboard, you can add widgets to the dashboard by clicking on the "Add Widget" icon.
 ![img_8.png](img_8.png)
 All the widgets contain two configuration tabs:
@@ -107,4 +107,4 @@ All the widgets contain two configuration tabs:
 
 ## Conclusion
 
-Dashboards are essential components of monitoring systems, providing users with a centralized, real-time view of their IT infrastructure's health and performance. In Zoomphant, dashboards are customizable and flexible, offering global, service level, and independent level views tailored to the user's needs. By leveraging a variety of widgets, Zoomphant enables users to visualize and analyze monitoring data effectively, empowering them to make informed decisions and ensure the reliability and availability of their systems.
+Dashboards are essential components of monitoring systems, providing users with a centralized, real-time view of their IT infrastructure's health and performance. In ZoomPhant, dashboards are customizable and flexible, offering global, service level, and independent level views tailored to the user's needs. By leveraging a variety of widgets, ZoomPhant enables users to visualize and analyze monitoring data effectively, empowering them to make informed decisions and ensure the reliability and availability of their systems.
