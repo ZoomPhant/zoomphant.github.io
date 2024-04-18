@@ -46,7 +46,7 @@ Now, you've already your custom monitoring plugin. You can try to add a monitori
 
 ## Create Monitoring Services with Custom Prometheus Plugin
 
-Using custom prometheus plugin is very simple. When  [creating service](../service/) , just select your custom prometheus plugin:
+Using custom prometheus plugin is very simple. When  [creating service](../../01_service/) , just select your custom prometheus plugin:
 
 ![image-20240410100122358](./image-20240410100122358.png)
 
