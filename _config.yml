@@ -17,7 +17,7 @@ title: ZoomPhant Documentation
 head: ZoomPhant Help Documentation
 description: How to use ZoomPhant Platform to solve all your monitoring problems
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://zoomphant.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 permalink: pretty
 
