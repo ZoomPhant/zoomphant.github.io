@@ -1,10 +1,13 @@
 <ul class="nav-list">
     {% for node in include.pages %}
     <li class="nav-list-item">
+        {%- assign root_pages = include.all | where: "parent", node.title -%}
         {%- if node.has_children -%}
-        <button class="nav-list-expander btn-reset" aria-label="toggle items in {{ node.title }} category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-        </button>
+            {%- if root_pages.size > 0 -%}
+            <button class="nav-list-expander btn-reset" aria-label="toggle items in {{ node.title }} category" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+            </button>
+            {%- endif -%}
         {%- endif -%}
         <a href="{{ node.url | relative_url }}" class="nav-list-link">{{ node.title }}</a>
         {% if node.has_children %}
