@@ -1,9 +1,9 @@
 {% comment %}
-The complexity of this file comes from a breaking change in Mermaid v10; mermaid.init has been deprecated (and supposedly, didn't work earlier?).
+  The complexity of this file comes from a breaking change in Mermaid v10; mermaid.init has been deprecated (and supposedly, didn't work earlier?).
 
-So, we check whether the user's Mermaid version is >= 10; if not, we fall back to the previous init syntax.
+  So, we check whether the user's Mermaid version is >= 10; if not, we fall back to the previous init syntax.
 
-If a user is using a custom mermaid file and doesn't specify a version, we default to the < v10 behaviour. Users who use version v10 or above should specify this in the version key.
+  If a user is using a custom mermaid file and doesn't specify a version, we default to the < v10 behaviour. Users who use version v10 or above should specify this in the version key.
 {% endcomment %}
 
 {% if site.mermaid.version %}
@@ -14,32 +14,32 @@ If a user is using a custom mermaid file and doesn't specify a version, we defau
 
 {% if mermaid_major_version > 9 %}
 
-<script type="module">
+  <script type="module">
+      {% if site.mermaid.path %}
+      import mermaid from '{{ site.mermaid.path | relative_url }}';
+      {% else %}
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.esm.min.mjs';
+      {% endif %}
+
+      var config = {% include mermaid_config.js %};
+      mermaid.initialize(config);
+      mermaid.run({
+    querySelector: '.language-mermaid',
+      });
+  </script>
+
+{% else %}
+
   {% if site.mermaid.path %}
-  import mermaid from '{{ site.mermaid.path | relative_url }}';
+    <script src="{{ site.mermaid.path | relative_url }}"></script>
   {% else %}
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.esm.min.mjs';
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.min.js"></script>
   {% endif %}
 
-  var config = {% include mermaid_config.js %};
-  mermaid.initialize(config);
-  mermaid.run({
-    querySelector: '.language-mermaid',
-  });
-</script>
-
-{% else %}
-
-{% if site.mermaid.path %}
-  <script src="{{ site.mermaid.path | relative_url }}"></script>
-{% else %}
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.min.js"></script>
-{% endif %}
-
-<script>
-  var config = {% include mermaid_config.js %};
-  mermaid.initialize(config);
-  window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-</script>
+  <script>
+      var config = {% include mermaid_config.js %};
+      mermaid.initialize(config);
+      window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  </script>
 
 {% endif %}
