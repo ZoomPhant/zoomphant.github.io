@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Redis Monitoring
-parent: Application & Service Monitoring
+parent: Applications Monitoring
 grand_parent: References
 nav_order: 103
 type: application

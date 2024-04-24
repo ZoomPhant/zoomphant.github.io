@@ -2,7 +2,7 @@
 layout: default
 title: Create Windows Monitoring Account
 parent: Windows WMI Monitoring
-grand_parent: Application & Service Monitoring
+grand_parent: Applications Monitoring
 nav_order: 110
 type: application
 has_children: false

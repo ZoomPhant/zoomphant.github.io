@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ethereum Blockchain Monitoring
-parent: Application & Service Monitoring
+parent: Applications Monitoring
 grand_parent: References
 nav_order: 113
 type: application
@@ -17,7 +17,7 @@ Ethereum Blockchain Monitoring can monitor the Ethereum Blockchain, including Ge
 
 1. Navigate to the Monitoring Services section by clicking on the left sidebar.
 2. Click the "Add" button in the top left corner of the page.
-3. Select "Single addition" under "Application Or Services".
+3. Select "Single addition" under "Applications".
 4. Locate "Ethereum Blockchain" and click "Add".
 
 ![img_5.png](img_5.png)

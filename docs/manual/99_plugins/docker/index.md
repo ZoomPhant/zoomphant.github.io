@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Docker Container Monitoring
-parent: Application & Service Monitoring
+parent: Applications Monitoring
 grand_parent: References
 nav_order: 112
 type: application
@@ -11,13 +11,13 @@ has_children: true
 # Docker Container Monitoring
 {: .no_toc .header }
 
-Docker Container Monitoring utilizes the Docker API to monitor the status of Docker containers. It provides insights into CPU usage, memory usage, IO usage, and network traffic for each container.
+Docker Container Monitoring utilizes the Docker API to monitor the status of Docker containers. You can not only use it to monitor the running status of local Docker containers, but also to monitor containers on each node of Kubernetes, as well as containers on EC2 instances of AWS ECS, to obtain more comprehensive data. It provides insights into CPU usage, memory usage, IO usage, and network traffic for each container.
 
 ## Adding Docker Container to Monitoring Services
 
 1. Navigate to the Monitoring Services section by clicking on the left sidebar.
 2. Click the "Add" button in the top left corner of the page.
-3. Select "Single addition" under "Application Or Services".
+3. Select "Single addition" under "Applications".
 4. Locate "Docker Container" and click "Add".
 
 ![img.png](img.png)

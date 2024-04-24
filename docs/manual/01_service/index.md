@@ -32,7 +32,7 @@ The first step is to choose what kind of monitoring service you want to add:
 
 
 
-Once you decided the kind of monitoring services, you will start to add the monitoring services by choosing to add just one or add a batch of similar services (like monitoring a group of serviers or bunch of database servers). We'll have more on batch adding monitoring service later, but for now, let's suppose we would try to add a single monitoring service for an application or service, so just click the "**Single addition**" under **Application or Services** type.
+Once you decided the kind of monitoring services, you will start to add the monitoring services by choosing to add just one or add a batch of similar services (like monitoring a group of serviers or bunch of database servers). We'll have more on batch adding monitoring service later, but for now, let's suppose we would try to add a single monitoring service for an application or service, so just click the "**Single addition**" under **Applications** type.
 
 
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Linux SNMP Monitoring
-parent: Application & Service Monitoring
+parent: Applications Monitoring
 grand_parent: References
 nav_order: 111
 type: application
