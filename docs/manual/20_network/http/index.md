@@ -31,12 +31,36 @@ Here：
   * format: how to interpret the JSON object, the value could be "json" or "xml"
   * path: depends on format, it could be a JSON path or XML path
   * value: the value to check against. We will take the value as string
-  * op: what kind of check you want to check, like "equal", "notEqual", "contain", "notContain", "exist", "notExist", "match", "notMatch"
+  * op: what kind of check you want to check, like "equal", "notEqual", "contain", "notContain", "exist", "notExist", "match", "notMatch".
+an example: (which will check the json value `$.result.data` will equal to `test`) 
+```json
+{
+  "format": "json",
+  "path": "$.result.data",
+  "value": "test",
+  "op": "equal"
+}
+ ```
 * proxy.host / proxy.port: the proxy server to use if you need to access the url after a proxy
 * proxy.user / proxy.pass: the proxy user name and password if required
 * proxy.type: type of proxy to use, by default it's a HTTP proxy.
-
-
+* metrics: for advanced user only. A JSON array which can be used to extract metrics from the http body or http header. each
+object has below format:
+  * name : the name of the metric. The final metric name will be added a prefix: "metric."
+  * extractorSource : which part will be used to extract metric. values: header/responsebody. 
+  * extractorMethod : how to extract the metric. values: values: xml/json/regex.
+  * extractorParams : the params. for xml, it's xml path. for json, it's json path. for regex, it's the regex expression.
+an example: (this will report a metric `metric.productNumber` with the value of `$.data.productNum`)
+```json
+[
+  {
+    "name": "productNumber",
+    "extractorSource" : "responsebody",
+    "extractorMethod": "json",
+    "extractorParams": ["$.data.productNum"]
+  }
+]
+```  
 
 ## Understanding the HTTP Checker Data
 
