@@ -44,6 +44,8 @@ an example: (which will check the json value `$.result.data` will equal to `test
 * proxy.host / proxy.port: the proxy server to use if you need to access the url after a proxy
 * proxy.user / proxy.pass: the proxy user name and password if required
 * proxy.type: type of proxy to use, by default it's a HTTP proxy.
+* method: optional. set the http method. GET or POST. default is GET.
+* body: optional. set the http post body. default is empty if method is POST.  
 * metrics: for advanced user only. A JSON array which can be used to extract metrics from the http body or http header. each
 object has below format:
   * name : the name of the metric. The final metric name will be added a prefix: "metric."
