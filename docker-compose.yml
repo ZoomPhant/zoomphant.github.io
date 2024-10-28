@@ -13,6 +13,7 @@ services:
       - ./assets:/usr/src/app/assets
       - ./docs:/usr/src/app/docs
       - ./index.md:/usr/src/app/index.md
+      - ./_site:/usr/src/app/_site
     stdin_open: true
     tty: true
     command: bundle exec jekyll serve -H 0.0.0.0 -t
