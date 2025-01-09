@@ -32,7 +32,7 @@ Here：
   * path: depends on format, it could be a JSON path or XML path
   * value: the value to check against. We will take the value as string
   * op: what kind of check you want to check, like "equal", "notEqual", "contain", "notContain", "exist", "notExist", "match", "notMatch".
-an example: (which will check the json value `$.result.data` will equal to `test`) 
+  an example: (which will check the json value `$.result.data` will equal to `test`) 
 ```json
 {
   "format": "json",
@@ -40,7 +40,7 @@ an example: (which will check the json value `$.result.data` will equal to `test
   "value": "test",
   "op": "equal"
 }
- ```
+```
 * proxy.host / proxy.port: the proxy server to use if you need to access the url after a proxy
 * proxy.user / proxy.pass: the proxy user name and password if required
 * proxy.type: type of proxy to use, by default it's a HTTP proxy.
@@ -51,7 +51,7 @@ an example: (which will check the json value `$.result.data` will equal to `test
 [
   {"name":  "Authorization", "value":  "Bear XXXX"}
 ]
-```  
+```
 * metrics: for advanced user only. A JSON array which can be used to extract metrics from the http body or http header. each
 object has below format:
   * name : the name of the metric. The final metric name will be added a prefix: "metric."
@@ -68,7 +68,7 @@ an example: (this will report a metric `metric.productNumber` with the value of 
     "extractorParams": ["$.data.productNum"]
   }
 ]
-```  
+```
 
 ## Understanding the HTTP Checker Data
 
@@ -80,7 +80,35 @@ Once you have added the monitoring service, you can navigate to it and see the c
 
 First you can see the overall status in **Status** widget for the monitored URL. If everything is OK, you can see the green OK, otherwise, depending on the severity of the problem, you would see an orange or red error messages.
 
+The values for metric `status`:
+
+| Value | Note                                                  |
+| ----- | ----------------------------------------------------- |
+| 0     | OK                                                    |
+| 1     | Http request failure                                  |
+| 2     | Unknown internal error                                |
+| 3     | Dns error eg unknown host name                        |
+| 4     | Connection error eg fail to connect                   |
+| 5     | SSL error. See the `sslStatus` for detail information |
+| 6     | Previous step failed                                  |
+| 11    | HTTP code mismatch                                    |
+| 21    | HTTP header mismatch                                  |
+| 31    | HTTP content mismatch                                 |
+
 If the URL monitored is a HTTPS link, you'll also see the certificate status in **Security Certificate** widget. Like the overall status, if everything is OK a green OK is displayed, otherwise an error message is displayed in orange or red color.
+
+The value for metric `sslStatus`:
+
+| Value | Note                                                         |
+| ----- | ------------------------------------------------------------ |
+| 0     | OK                                                           |
+| -1    | The ssl is not checked because maybe a dns error or connection failure |
+| 1     | It's a http endpoint                                         |
+| 2     | Certificate is expired                                       |
+| 3     | Certificate is not valid yet                                 |
+| 4     | Certificate is not trusted                                   |
+| 5     | The SNI is mismatch                                          |
+| 6     | Certificate is revoked                                       |
 
 For HTTPS link, besides the certificate status, the certificate expiration is also shown up in the **SSL Expired** widget, you can set alerts to remind you before your certificate expires.
 
